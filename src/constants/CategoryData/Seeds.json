@@ -1,0 +1,24 @@
+[
+    { "id": 1, "english": "Mustard Seeds", "tamil": "Kadugu" },
+    { "id": 2, "english": "Cumin Seeds", "tamil": "Jeeragam" },
+    { "id": 3, "english": "Fenugreek Seeds", "tamil": "Vendhayam" },
+    { "id": 4, "english": "Nigella Seeds", "tamil": "Kalonji" },
+    { "id": 5, "english": "Sesame Seeds", "tamil": "Ellu" },
+    { "id": 6, "english": "Poppy Seeds", "tamil": "Kasa Kasa" },
+    { "id": 7, "english": "Sunflower Seeds", "tamil": "Soorai Kottai" },
+    { "id": 8, "english": "Pumpkin Seeds", "tamil": "Poosanikai Kottai" },
+    { "id": 9, "english": "Watermelon Seeds", "tamil": "Thanthri Kottai" },
+    { "id": 10, "english": "Flax Seeds", "tamil": "Alasi" },
+    { "id": 11, "english": "Chia Seeds", "tamil": "Chia Vithai" },
+    { "id": 12, "english": "Basil Seeds", "tamil": "Sabja Vithai" },
+    { "id": 13, "english": "Ajwain Seeds", "tamil": "Omam" },
+    { "id": 14, "english": "Coriander Seeds", "tamil": "Dhaniya Vithai" },
+    { "id": 15, "english": "Cumin Powder", "tamil": "Jeera Podi" },
+    { "id": 16, "english": "Fennel Seeds", "tamil": "Perunjeeragam" },
+    { "id": 17, "english": "Carom Seeds", "tamil": "Ajwain" },
+    { "id": 18, "english": "Black Sesame Seeds", "tamil": "Karuppu Ellu" },
+    { "id": 19, "english": "Melon Seeds", "tamil": "Magaz Vithai" },
+    { "id": 20, "english": "Celery Seeds", "tamil": "Varayali Vithai" }
+    
+  ]
+  

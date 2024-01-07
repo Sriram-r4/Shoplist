@@ -1,0 +1,23 @@
+[
+    { "id": 1, "english": "Broom", "tamil": "Thodappam" },
+    { "id": 2, "english": "Mop", "tamil": "Mop" },
+    { "id": 3, "english": "Dustpan", "tamil": "Dustpan" },
+    { "id": 4, "english": "Bucket", "tamil": "Bucket" },
+    { "id": 5, "english": "Brush", "tamil": "Brush" },
+    { "id": 6, "english": "Detergent", "tamil": "Detergent" },
+    { "id": 7, "english": "Soap", "tamil": "Soap" },
+    { "id": 8, "english": "Towel", "tamil": "Towel" },
+    { "id": 9, "english": "Tissue Paper", "tamil": "Tissue Paper" },
+    { "id": 10, "english": "Trash Bags", "tamil": "Trash Bags" },
+    { "id": 11, "english": "Laundry Basket", "tamil": "Laundry Basket" },
+    { "id": 12, "english": "Air Freshener", "tamil": "Air Freshener" },
+    { "id": 13, "english": "Insect Repellent", "tamil": "Insect Repellent" },
+    { "id": 14, "english": "Candles", "tamil": "Candles" },
+    { "id": 15, "english": "Light Bulbs", "tamil": "Light Bulbs" },
+    { "id": 16, "english": "Tape", "tamil": "Tape" },
+    { "id": 17, "english": "Scissors", "tamil": "Scissors" },
+    { "id": 18, "english": "Glue", "tamil": "Glue" },
+    { "id": 19, "english": "Batteries", "tamil": "Batteries" },
+    { "id": 20, "english": "Extension Cord", "tamil": "Extension Cord" }
+]
+  

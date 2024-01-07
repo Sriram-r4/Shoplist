@@ -1,0 +1,24 @@
+[
+    { "id": 1, "english": "Chicken", "tamil": "Kozhi" },
+    { "id": 2, "english": "Mutton", "tamil": "Aatukal" },
+    { "id": 3, "english": "Beef", "tamil": "Mavu" },
+    { "id": 4, "english": "Pork", "tamil": "Sukar" },
+    { "id": 5, "english": "Fish", "tamil": "Meen" },
+    { "id": 6, "english": "Prawns", "tamil": "Iral" },
+    { "id": 7, "english": "Crab", "tamil": "Nandu" },
+    { "id": 8, "english": "Lobster", "tamil": "Kozhi Eraal" },
+    { "id": 9, "english": "Squid", "tamil": "Kanava" },
+    { "id": 10, "english": "Clams", "tamil": "Nadukal" },
+    { "id": 11, "english": "Quail", "tamil": "Kaadai" },
+    { "id": 12, "english": "Rabbit", "tamil": "Sanni Kozhi" },
+    { "id": 13, "english": "Duck", "tamil": "Thari Kozhi" },
+    { "id": 14, "english": "Turkey", "tamil": "Thanksgiving Kozhi" },
+    { "id": 15, "english": "Venison", "tamil": "Karadi Kari" },
+    { "id": 16, "english": "Buffalo", "tamil": "Kari Mavu" },
+    { "id": 17, "english": "Horse", "tamil": "Kudhirai" },
+    { "id": 18, "english": "Goat", "tamil": "Aadu" },
+    { "id": 19, "english": "Lamb", "tamil": "Karumbu" },
+    { "id": 20, "english": "Eel", "tamil": "Vilangu Meen" }
+
+  ]
+  

@@ -1,0 +1,24 @@
+[
+    { "id": 1, "english": "Sesame Oil", "tamil": "Nallennai" },
+    { "id": 2, "english": "Coconut Oil", "tamil": "Coconut Oil" },
+    { "id": 3, "english": "Groundnut Oil", "tamil": "Kadalai Ennai" },
+    { "id": 4, "english": "Sunflower Oil", "tamil": "Suryakanthi Ennai" },
+    { "id": 5, "english": "Mustard Oil", "tamil": "Kadugu Ennai" },
+    { "id": 6, "english": "Gingelly Oil", "tamil": "Nallennai" },
+    { "id": 7, "english": "Palm Oil", "tamil": "Panna Ennai" },
+    { "id": 8, "english": "Olive Oil", "tamil": "Olive Oil" },
+    { "id": 9, "english": "Rice Bran Oil", "tamil": "Rice Bran Oil" },
+    { "id": 10, "english": "Canola Oil", "tamil": "Canola Ennai" },
+    { "id": 11, "english": "Soybean Oil", "tamil": "Soybean Ennai" },
+    { "id": 12, "english": "Corn Oil", "tamil": "Corn Ennai" },
+    { "id": 13, "english": "Peanut Oil", "tamil": "Verkadalai Ennai" },
+    { "id": 14, "english": "Flaxseed Oil", "tamil": "Flaxseed Ennai" },
+    { "id": 15, "english": "Avocado Oil", "tamil": "Avocado Ennai" },
+    { "id": 16, "english": "Almond Oil", "tamil": "Almond Ennai" },
+    { "id": 17, "english": "Walnut Oil", "tamil": "Walnut Ennai" },
+    { "id": 18, "english": "Hazelnut Oil", "tamil": "Hazelnut Ennai" },
+    { "id": 19, "english": "Pumpkin Seed Oil", "tamil": "Pumpkin Seed Ennai" },
+    { "id": 20, "english": "Safflower Oil", "tamil": "Safflower Ennai" }
+    
+  ]
+  

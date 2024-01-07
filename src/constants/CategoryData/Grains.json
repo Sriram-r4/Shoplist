@@ -1,0 +1,24 @@
+[
+    { "id": 1, "english": "Rice", "tamil": "Arisi" },
+    { "id": 2, "english": "Wheat", "tamil": "Godhumai" },
+    { "id": 3, "english": "Maize", "tamil": "Makka Cholam" },
+    { "id": 4, "english": "Barley", "tamil": "Barli Arisi" },
+    { "id": 5, "english": "Millets", "tamil": "Siru Thaniyangal" },
+    { "id": 6, "english": "Sorghum", "tamil": "Cholam" },
+    { "id": 7, "english": "Ragi", "tamil": "Kezhvaragu" },
+    { "id": 8, "english": "Bajra", "tamil": "Kambu" },
+    { "id": 9, "english": "Jowar", "tamil": "Cholam" },
+    { "id": 10, "english": "Oats", "tamil": "Oats" },
+    { "id": 11, "english": "Quinoa", "tamil": "Quinoa" },
+    { "id": 12, "english": "Foxtail Millet", "tamil": "Thinai" },
+    { "id": 13, "english": "Little Millet", "tamil": "Samai" },
+    { "id": 14, "english": "Kodo Millet", "tamil": "Varagu" },
+    { "id": 15, "english": "Proso Millet", "tamil": "Panivaragu" },
+    { "id": 16, "english": "Pearl Millet", "tamil": "Kambu" },
+    { "id": 17, "english": "Finger Millet", "tamil": "Ragi" },
+    { "id": 18, "english": "Barnyard Millet", "tamil": "Kuthiraivali" },
+    { "id": 19, "english": "Sago", "tamil": "Javvarisi" },
+    { "id": 20, "english": "Green Gram", "tamil": "Pachai Payaru" }
+    
+  ]
+  

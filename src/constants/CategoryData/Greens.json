@@ -1,0 +1,21 @@
+[
+    { "id": 1, "english": "Spinach", "tamil": "Pasalai Keerai" },
+    { "id": 2, "english": "Amaranthus", "tamil": "Thandu Keerai" },
+    { "id": 3, "english": "Fenugreek Leaves", "tamil": "Vendhaya Keerai" },
+    { "id": 4, "english": "Drumstick Leaves", "tamil": "Murungai Keerai" },
+    { "id": 5, "english": "Mint Leaves", "tamil": "Pudina Keerai" },
+    { "id": 6, "english": "Watercress", "tamil": "Vallarai Keerai" },
+    { "id": 7, "english": "Taro Leaves", "tamil": "Colocasia Keerai" },
+    { "id": 8, "english": "Brahmi Leaves", "tamil": "Brahmi Keerai" },
+    { "id": 9, "english": "Radish Greens", "tamil": "Mullangi Keerai" },
+    { "id": 10, "english": "Turnip Greens", "tamil": "Turnip Keerai" },
+    { "id": 11, "english": "Arai Keerai", "tamil": "Arai Keerai" },
+    { "id": 12, "english": "Siru Keerai", "tamil": "Siru Keerai" },
+    { "id": 13, "english": "Methi Greens", "tamil": "Vendhaya Keerai" },
+    { "id": 14, "english": "Agathi Keerai", "tamil": "Agathi Keerai" },
+    { "id": 15, "english": "Palak", "tamil": "Palak" },
+    { "id": 16, "english": "Cabbage Greens", "tamil": "Muttaikose Keerai" },
+    { "id": 17, "english": "Red Sorrel Leaves", "tamil": "Pulicha Keerai" },
+    { "id": 18, "english": "Dwarf CopperLeaf spinach", "tamil": "Ponnangani keerai" }
+
+  ]

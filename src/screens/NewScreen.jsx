@@ -11,18 +11,19 @@ import ItemCard from '../components/ItemCard'
 import { Button } from 'react-native-paper'
 import CustomButton from '../components/CustomButton';
 
-export default function NewScreen({ navigation }) {
-
+export default function NewScreen({ navigation,route }) {
+    const selectedItem=route.params;
+   
     const table = [...TABLE_DATA];
     const [data, setData] = useState();
     const [item, setItem] = useState({})
-   
+      
     const stepperRef = useRef();
-
+   
     const handleSubmit = React.useCallback(() => {
         console.log('submitted');
-        stepperRef.current.prevStep()
-        stepperRef.current.prevStep()
+        stepperRef.current.prevStep();
+        
     }, [])
 
     const handlePrevious = React.useCallback(() => {
@@ -39,7 +40,13 @@ export default function NewScreen({ navigation }) {
 
     useEffect(() => {
         setData(table);
+  
     }, [])
+    // useEffect(()=>{
+    //     if(SelectedItem  && Object.keys(SelectedItem).length!==0){
+    //         setItem(SelectedItem);
+    //     }
+    // },[])
  
     const ProgressStepStyles={
         progressBarBgColor:'#76a89f',
@@ -67,15 +74,10 @@ export default function NewScreen({ navigation }) {
                 onSubmit={handleSubmit}
                 onPrevStep={() => handlePrevious}
                 onNextStep={() => handleNext}
-                numberOfSteps={3}
+                numberOfSteps={2}
                 buttonsContainerStyle={{backgroundColor:"#f0f8f7",borderRadius:50, margin: 2, padding: 2, color: "#fff", width: wp(95), height: hp(10), alignSelf: "center", justifyContent: "space-around",}}
                 ButtonComponent={(props) => <CustomButton {...props} />}
             >
-                <Stepper.Step label="List"
-                {...ProgressStepStyles}
-                >
-                    <ListInfo />
-                </Stepper.Step>
 
 
 
@@ -84,8 +86,7 @@ export default function NewScreen({ navigation }) {
                     <View style={{ width: wp(100), height: hp(57) }} className='flex items-center justify-center'>
                         <View style={{ width: wp(95), height: hp(57) }} className='p-2 m-2'>
                             <Text className="text-teal-700 text-xl text-center font-medium">Enter Table Details</Text>
-                            <MultiInputTable itemData={itemData} navigation={navigation} />
-                            <Button style={{ width: wp(90), height: hp(5) }} title="Add Item" labelStyle={{ color: "#fff" }} className="bg-teal-600 mx-2 " onPress={() => { console.log("Item Added") }}>Add Item</Button>
+                            <MultiInputTable itemData={itemData} navigation={navigation} itemname={selectedItem!==undefined?selectedItem:{}}  />
                             <ItemCard />
                         </View>
                     </View>

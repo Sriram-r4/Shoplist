@@ -1,0 +1,24 @@
+[
+    { "id": 1, "english": "Tomato Ketchup", "tamil": "Thakkali Sauce" },
+    { "id": 2, "english": "Mustard Sauce", "tamil": "Kadugu Sauce" },
+    { "id": 3, "english": "Soy Sauce", "tamil": "Soy Sauce" },
+    { "id": 4, "english": "Vinegar", "tamil": "Vennai" },
+    { "id": 5, "english": "Mayonnaise", "tamil": "Mayonnaise" },
+    { "id": 6, "english": "Hot Sauce", "tamil": "Hot Sauce" },
+    { "id": 7, "english": "Fish Sauce", "tamil": "Meen Sauce" },
+    { "id": 8, "english": "Worcestershire Sauce", "tamil": "Worcestershire Sauce" },
+    { "id": 9, "english": "Tamarind Paste", "tamil": "Puli Paste" },
+    { "id": 10, "english": "Chutney", "tamil": "Chutney" },
+    { "id": 11, "english": "Pickles", "tamil": "Urugai" },
+    { "id": 12, "english": "Salsa", "tamil": "Salsa" },
+    { "id": 13, "english": "Raita", "tamil": "Raita" },
+    { "id": 14, "english": "Hummus", "tamil": "Hummus" },
+    { "id": 15, "english": "Pesto", "tamil": "Pesto" },
+    { "id": 16, "english": "Sambal", "tamil": "Sambal" },
+    { "id": 17, "english": "Hoisin Sauce", "tamil": "Hoisin Sauce" },
+    { "id": 18, "english": "Chili Oil", "tamil": "Chili Oil" },
+    { "id": 19, "english": "Sesame Oil", "tamil": "Nallennai" },
+    { "id": 20, "english": "Oyster Sauce", "tamil": "Oyster Sauce" }
+
+  ]
+  

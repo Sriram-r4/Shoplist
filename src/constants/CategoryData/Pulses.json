@@ -1,0 +1,24 @@
+[
+    { "id": 1, "english": "Toor Dal", "tamil": "Thuvaram Paruppu" },
+    { "id": 2, "english": "Urad Dal", "tamil": "Ulunthu Paruppu" },
+    { "id": 3, "english": "Moong Dal", "tamil": "Pasi Paruppu" },
+    { "id": 4, "english": "Chana Dal", "tamil": "Kadalai Paruppu" },
+    { "id": 5, "english": "Masoor Dal", "tamil": "Masoor Paruppu" },
+    { "id": 6, "english": "Horse Gram", "tamil": "Kollu" },
+    { "id": 7, "english": "Green Gram", "tamil": "Pachai Payaru" },
+    { "id": 8, "english": "Black Gram", "tamil": "Karuppu Ulunthu" },
+    { "id": 9, "english": "Red Gram", "tamil": "Sigappu Paruppu" },
+    { "id": 10, "english": "Bengal Gram", "tamil": "Kondakadalai" },
+    { "id": 11, "english": "Cowpea", "tamil": "Thatta Payaru" },
+    { "id": 12, "english": "Green Peas", "tamil": "Pachai Pattani" },
+    { "id": 13, "english": "Black Eyed Peas", "tamil": "Karamani" },
+    { "id": 14, "english": "Fava Beans", "tamil": "Avarai Paruppu" },
+    { "id": 15, "english": "Butter Beans", "tamil": "Lima Beans" },
+    { "id": 16, "english": "Chickpeas", "tamil": "Kondakadalai" },
+    { "id": 17, "english": "Pigeon Peas", "tamil": "Thuvaram Paruppu" },
+    { "id": 18, "english": "Split Green Gram", "tamil": "Pachai Payaru" },
+    { "id": 19, "english": "Split Black Gram", "tamil": "Karuppu Ulunthu" },
+    { "id": 20, "english": "Split Red Gram", "tamil": "Sigappu Paruppu" }
+  
+  ]
+  

@@ -1,0 +1,24 @@
+[
+    { "id": 1, "english": "Apple", "tamil": "Apple" },
+    { "id": 2, "english": "Banana", "tamil": "Vazhai Pazham" },
+    { "id": 3, "english": "Mango", "tamil": "Maam Pazham" },
+    { "id": 4, "english": "Papaya", "tamil": "Papali" },
+    { "id": 5, "english": "Grapes", "tamil": "Drakshai" },
+    { "id": 6, "english": "Orange", "tamil": "Orange" },
+    { "id": 7, "english": "Pineapple", "tamil": "Annasi Pazham" },
+    { "id": 8, "english": "Watermelon", "tamil": "Thanneer Mathan" },
+    { "id": 9, "english": "Kiwi", "tamil": "Kiwi" },
+    { "id": 10, "english": "Pomegranate", "tamil": "Madhulai" },
+    { "id": 11, "english": "Guava", "tamil": "Koyya Pazham" },
+    { "id": 12, "english": "Cherry", "tamil": "Cherry" },
+    { "id": 13, "english": "Peach", "tamil": "Peach" },
+    { "id": 14, "english": "Plum", "tamil": "Plum" },
+    { "id": 15, "english": "Apricot", "tamil": "Apricot" },
+    { "id": 16, "english": "Pear", "tamil": "Pear" },
+    { "id": 17, "english": "Coconut", "tamil": "Thengai" },
+    { "id": 18, "english": "Avocado", "tamil": "Avocado" },
+    { "id": 19, "english": "Dragon Fruit", "tamil": "Dragon Fruit" },
+    { "id": 20, "english": "Raspberry", "tamil": "Raspberry" }
+    
+  ]
+  

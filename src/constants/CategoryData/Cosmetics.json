@@ -1,0 +1,24 @@
+[
+    { "id": 1, "english": "Shampoo", "tamil": "Shampoo" },
+    { "id": 2, "english": "Conditioner", "tamil": "Conditioner" },
+    { "id": 3, "english": "Body Wash", "tamil": "Body Wash" },
+    { "id": 4, "english": "Soap", "tamil": "Soap" },
+    { "id": 5, "english": "Face Wash", "tamil": "Face Wash" },
+    { "id": 6, "english": "Cleanser", "tamil": "Cleanser" },
+    { "id": 7, "english": "Toner", "tamil": "Toner" },
+    { "id": 8, "english": "Moisturizer", "tamil": "Moisturizer" },
+    { "id": 9, "english": "Sunscreen", "tamil": "Sunscreen" },
+    { "id": 10, "english": "Lip Balm", "tamil": "Lip Balm" },
+    { "id": 11, "english": "Deodorant", "tamil": "Deodorant" },
+    { "id": 12, "english": "Perfume", "tamil": "Perfume" },
+    { "id": 13, "english": "Hair Oil", "tamil": "Hair Oil" },
+    { "id": 14, "english": "Hair Gel", "tamil": "Hair Gel" },
+    { "id": 15, "english": "Hair Spray", "tamil": "Hair Spray" },
+    { "id": 16, "english": "Hair Serum", "tamil": "Hair Serum" },
+    { "id": 17, "english": "Nail Polish", "tamil": "Nail Polish" },
+    { "id": 18, "english": "Foundation", "tamil": "Foundation" },
+    { "id": 19, "english": "Lipstick", "tamil": "Lipstick" },
+    { "id": 20, "english": "Eyeliner", "tamil": "Eyeliner" }
+    
+  ]
+  

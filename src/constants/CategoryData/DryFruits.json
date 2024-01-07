@@ -1,0 +1,24 @@
+[
+    { "id": 1, "english": "Almonds", "tamil": "Badam" },
+    { "id": 2, "english": "Cashews", "tamil": "Mundhiri Paruppu" },
+    { "id": 3, "english": "Walnuts", "tamil": "Akhrot" },
+    { "id": 4, "english": "Pistachios", "tamil": "Pista" },
+    { "id": 5, "english": "Raisins", "tamil": "Ular Vadham" },
+    { "id": 6, "english": "Dates", "tamil": "Pericham Palam" },
+    { "id": 7, "english": "Dried Figs", "tamil": "Athipalam" },
+    { "id": 8, "english": "Dried Apricots", "tamil": "Sukkan Kumbal" },
+    { "id": 9, "english": "Dried Cranberries", "tamil": "Cranberries" },
+    { "id": 10, "english": "Dried Blueberries", "tamil": "Blueberries" },
+    { "id": 11, "english": "Dried Cherries", "tamil": "Cherries" },
+    { "id": 12, "english": "Prunes", "tamil": "Prunes" },
+    { "id": 13, "english": "Dried Mango Slices", "tamil": "Manga Thundu" },
+    { "id": 14, "english": "Dried Pineapple", "tamil": "Annasi Thundu" },
+    { "id": 15, "english": "Dried Papaya", "tamil": "Papali Thundu" },
+    { "id": 16, "english": "Hazelnuts", "tamil": "Hazelnuts" },
+    { "id": 17, "english": "Brazil Nuts", "tamil": "Brazil Nuts" },
+    { "id": 18, "english": "Macadamia Nuts", "tamil": "Macadamia Nuts" },
+    { "id": 19, "english": "Pine Nuts", "tamil": "Pine Nuts" },
+    { "id": 20, "english": "Dried Kiwi Slices", "tamil": "Kiwi Thundu" }
+
+  ]
+  

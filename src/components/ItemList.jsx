@@ -1,37 +1,62 @@
-import { View} from 'react-native';
-import React, { useState ,useEffect} from 'react';
+import {View,Text, FlatList,TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Searchbar,Button } from 'react-native-paper';
-
+import { MaterialIcons } from '@expo/vector-icons';
 
 
 function ItemList({navigation}) {
-  const [searchQuery, setSearchQuery] = useState('');
 
-  const onChangeSearch = query => setSearchQuery(query);
+  const [selectedCategory, setSelectedCategory] = useState(" ");
+  
+  const category=[
+    {"id":1,"title":"Appliances","value":"Appliances"},
+    {"id":2,"title":"Condiments","value":"Condiments"},
+    {"id":3,"title":"Cosmetics","value":"Cosmetics"},
+    {"id":4,"title":"Diary","value":"Diary"},
+    {"id":5,"title":"Dry Fruits","value":"DryFruits"},
+    {"id":6,"title":"Fruits","value":"Fruits"},
+    {"id":7,"title":"Greens","value":"Greens"},
+    {"id":8,"title":"Grains","value":"Grains"},
+    {"id":9,"title":"Household Products","value":"HouseholdProducts"},
+    {"id":10,"title":"Hygiene Products","value":"HygieneProducts"},
+    {"id":11,"title":"Kitchen Commons","value":"KitchenCommons"},
+    {"id":12,"title":"Meat","value":"Meat"},
+    {"id":13,"title":"Oils","value":"Oils"},
+    {"id":14,"title":"Pulses","value":"Pulses"},
+    {"id":15,"title":"Rice","value":"Rice"},
+    {"id":16,"title":"Seeds","value":"Seeds"},
+    {"id":17,"title":"Spices","value":"Spices"},
+    {"id":18,"title":"Vegetables","value":"Vegetables"},
+  ];
+
+  const renderCategoryItem = ({item}) => (
+    <TouchableOpacity className=" m-1" onPress={()=>handleItemPress(item)}>
+    <View className="p-2 flex-row justify-between " >
+      <Text className="text-teal-700 font-semibold text-lg ">{item.title}</Text>
+      <MaterialIcons name='chevron-right' size={30} style={{color:"#00695C"}}/>
+    </View>
+    </TouchableOpacity>
+  );
+  
+  const handleItemPress=(item)=>{
+    console.log(item);
+    setSelectedCategory(item.title);
+    navigation.navigate('ItemProduct',{category:item.value});
+  }
+
+
   return (
-    <SafeAreaView style={{width:wp(100),height:hp(85)}}>
-      <View style={{width:wp(95),height:hp(7.5)}} className=" bg-teal-50 self-center ">
-       <Searchbar
-       style={{backgroundColor:"#f0fdfa"}}
-       inputStyle={{color:"#00695C"}}
-       selectionColor={"#00695C"}
-       iconColor='#00695C'
-       rippleColor={'#B2DFDB'}
-       elevation={2}
-      placeholder="Search"
-      onChangeText={onChangeSearch}
-      value={searchQuery}
-    />
-     </View>
-     <View className="self-center ">
-     <Button style={{ width: wp(90), height: hp(6) }} title="Next" labelStyle={{color:"#fff",fontSize:hp(2.5)}} className="bg-teal-600 p-1  mx-2 my-3 " 
-     icon="chevron-right"
-     onPress={()=>{console.log("Next page")
-     navigation.navigate("ItemProduct")}}>Next Page</Button>
-     </View>
-   
+    <SafeAreaView style={{width:wp(100),height:hp(87.2)}} >
+     <View style={{width:wp(97),height:hp(81)}} className=" mx-1.5  p-1  ">
+      <FlatList
+      data={category}
+      renderItem={renderCategoryItem}
+      keyExtractor={item => item.id}
+      showsVerticalScrollIndicator={false}
+      />
+     </View>   
     </SafeAreaView>
   )
 }

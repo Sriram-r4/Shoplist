@@ -1,0 +1,24 @@
+[
+    { "id": 1, "english": "Black Pepper", "tamil": "Milagu" },
+    { "id": 2, "english": "Cardamom", "tamil": "Elakkai" },
+    { "id": 3, "english": "Cinnamon", "tamil": "Pattai" },
+    { "id": 4, "english": "Cloves", "tamil": "Krambu" },
+    { "id": 5, "english": "Cumin Seeds", "tamil": "Jeeragam" },
+    { "id": 6, "english": "Coriander Seeds", "tamil": "Dhaniya Vithai" },
+    { "id": 7, "english": "Fennel Seeds", "tamil": "Perunjeeragam" },
+    { "id": 8, "english": "Mustard Seeds", "tamil": "Kadugu" },
+    { "id": 9, "english": "Poppy Seeds", "tamil": "Kasa Kasa" },
+    { "id": 10, "english": "Turmeric Powder", "tamil": "Manjal Podi" },
+    { "id": 11, "english": "Red Chili Powder", "tamil": "Milagai Podi" },
+    { "id": 12, "english": "Cumin Powder", "tamil": "Jeera Podi" },
+    { "id": 13, "english": "Coriander Powder", "tamil": "Dhaniya Podi" },
+    { "id": 14, "english": "Fenugreek Powder", "tamil": "Vendhayam Podi" },
+    { "id": 15, "english": "Asafoetida", "tamil": "Perungayam" },
+    { "id": 16, "english": "Bay Leaves", "tamil": "Brinji Elai" },
+    { "id": 17, "english": "Curry Leaves", "tamil": "Karivepilai" },
+    { "id": 18, "english": "Star Anise", "tamil": "Annasi Mokku" },
+    { "id": 19, "english": "Nutmeg", "tamil": "Jathikai" },
+    { "id": 20, "english": "Mace", "tamil": "Jathipathri" }
+   
+  ]
+  

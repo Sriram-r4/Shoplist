@@ -1,0 +1,24 @@
+[
+    { "id": 1, "english": "Refrigerator", "tamil": "Refrigerator" },
+    { "id": 2, "english": "Washing Machine", "tamil": "Washing Machine" },
+    { "id": 3, "english": "Microwave Oven", "tamil": "Microwave Oven" },
+    { "id": 4, "english": "Air Conditioner", "tamil": "Air Conditioner" },
+    { "id": 5, "english": "Television", "tamil": "Television" },
+    { "id": 6, "english": "Induction Cooktop", "tamil": "Induction Cooktop" },
+    { "id": 7, "english": "Gas Stove", "tamil": "Gas Stove" },
+    { "id": 8, "english": "Mixer Grinder", "tamil": "Mixer Grinder" },
+    { "id": 9, "english": "Food Processor", "tamil": "Food Processor" },
+    { "id": 10, "english": "Toaster", "tamil": "Toaster" },
+    { "id": 11, "english": "Coffee Maker", "tamil": "Coffee Maker" },
+    { "id": 12, "english": "Blender", "tamil": "Blender" },
+    { "id": 13, "english": "Juicer", "tamil": "Juicer" },
+    { "id": 14, "english": "Kettle", "tamil": "Kettle" },
+    { "id": 15, "english": "Dishwasher", "tamil": "Dishwasher" },
+    { "id": 16, "english": "Water Purifier", "tamil": "Water Purifier" },
+    { "id": 17, "english": "Iron", "tamil": "Iron" },
+    { "id": 18, "english": "Vacuum Cleaner", "tamil": "Vacuum Cleaner" },
+    { "id": 19, "english": "Hair Dryer", "tamil": "Hair Dryer" },
+    { "id": 20, "english": "Electric Fan", "tamil": "Electric Fan" }
+    
+  ]
+  

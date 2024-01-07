@@ -1,0 +1,24 @@
+[
+    { "id": 1, "english": "Basmati Rice", "tamil": "Basmati Arisi" },
+    { "id": 2, "english": "Parboiled Rice", "tamil": "Puzhungal Arisi" },
+    { "id": 3, "english": "Raw Rice", "tamil": "Pachai Arisi" },
+    { "id": 4, "english": "Idli Rice", "tamil": "Idli Arisi" },
+    { "id": 5, "english": "Ponni Rice", "tamil": "Ponni Arisi" },
+    { "id": 6, "english": "Sona Masoori Rice", "tamil": "Sona Masoori Arisi" },
+    { "id": 7, "english": "Red Rice", "tamil": "Sivappu Arisi" },
+    { "id": 8, "english": "Black Rice", "tamil": "Karuppu Arisi" },
+    { "id": 9, "english": "Brown Rice", "tamil": "Kaikuthal Arisi" },
+    { "id": 10, "english": "Jeeraga Samba Rice", "tamil": "Jeeraga Samba Arisi" },
+    { "id": 11, "english": "Kichili Samba Rice", "tamil": "Kichili Samba Arisi" },
+    { "id": 12, "english": "Mapillai Samba Rice", "tamil": "Mapillai Samba Arisi" },
+    { "id": 13, "english": "Kuruvai Rice", "tamil": "Kuruvai Arisi" },
+    { "id": 14, "english": "Thiruvaiyaru Ponni Rice", "tamil": "Thiruvaiyaru Ponni Arisi" },
+    { "id": 15, "english": "Seeraga Samba Rice", "tamil": "Seeraga Samba Arisi" },
+    { "id": 16, "english": "Ambur Sanna Rice", "tamil": "Ambur Sanna Arisi" },
+    { "id": 17, "english": "Matta Rice", "tamil": "Matta Arisi" },
+    { "id": 18, "english": "Kala Namak Rice", "tamil": "Kala Namak Arisi" },
+    { "id": 19, "english": "Kichili Samba Broken Rice", "tamil": "Kichili Samba Broken Arisi" },
+    { "id": 20, "english": "Jeeraga Samba Broken Rice", "tamil": "Jeeraga Samba Broken Arisi" }
+    
+  ]
+  

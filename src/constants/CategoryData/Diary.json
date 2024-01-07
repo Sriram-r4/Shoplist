@@ -1,0 +1,24 @@
+[
+    { "id": 1, "english": "Milk", "tamil": "Paal" },
+    { "id": 2, "english": "Curd", "tamil": "Thayir" },
+    { "id": 3, "english": "Buttermilk", "tamil": "Neer Mor" },
+    { "id": 4, "english": "Paneer", "tamil": "Paneer" },
+    { "id": 5, "english": "Butter", "tamil": "Vennai" },
+    { "id": 6, "english": "Ghee", "tamil": "Nei" },
+    { "id": 7, "english": "Yogurt", "tamil": "Yogurt" },
+    { "id": 8, "english": "Cheese", "tamil": "Cheese" },
+    { "id": 9, "english": "Condensed Milk", "tamil": "Thick Paal" },
+    { "id": 10, "english": "Evaporated Milk", "tamil": "Azhaga Paal" },
+    { "id": 11, "english": "Milk Powder", "tamil": "Paal Podi" },
+    { "id": 12, "english": "Lassi", "tamil": "Lassi" },
+    { "id": 13, "english": "Flavored Yogurt", "tamil": "Flavored Yogurt" },
+    { "id": 14, "english": "Ice Cream", "tamil": "Ice Cream" },
+    { "id": 15, "english": "Milkshake", "tamil": "Milkshake" },
+    { "id": 16, "english": "Whipped Cream", "tamil": "Whipped Cream" },
+    { "id": 17, "english": "Sour Cream", "tamil": "Sour Cream" },
+    { "id": 18, "english": "Condiments", "tamil": "Condiments" },
+    { "id": 19, "english": "Desserts", "tamil": "Desserts" },
+    { "id": 20, "english": "Milk Sweets", "tamil": "Paal Sweets" }
+    
+  ]
+  
