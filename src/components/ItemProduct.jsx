@@ -1,8 +1,9 @@
-import { View,SectionList,Text,TouchableOpacity, ActivityIndicator } from 'react-native';
-import React, { useState,useEffect } from 'react';
+import { View,SectionList,Text,TouchableOpacity, ActivityIndicator,  Alert } from 'react-native';
+import React, { useState,useEffect,useRef } from 'react';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Searchbar, Button } from 'react-native-paper';
+import Toast from 'react-native-toast-message';
 import Vegetables from '../constants/CategoryData/Vegetables.json';
 import Fruits from '../constants/CategoryData/Fruits.json';
 import Appliances from '../constants/CategoryData/Appliances.json';
@@ -21,14 +22,17 @@ import Pulses from '../constants/CategoryData/Pulses.json';
 import Rice from '../constants/CategoryData/Rice.json';
 import Seeds from '../constants/CategoryData/Seeds.json';
 import Spices from '../constants/CategoryData/Spices.json';
+import LottieView from 'lottie-react-native';
 
 
 export default function ItemProduct({route, navigation}) {
-  console.log(route.params.category);
+  // console.log(route.params.category);
   
   const selectedCategory=route.params.category;
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedItem, setSelectedItem] = useState({new:""});
+  const [selectedItem, setSelectedItem] = useState({});
+ 
+
   const [Jdata,setJdata]=useState({});
   var sections ={};
   if(Object.keys(Jdata).length!==0){
@@ -54,7 +58,7 @@ export default function ItemProduct({route, navigation}) {
     else if(selectedCategory==="Diary"){
       setJdata(Diary);
     }
-    else if(selectedCategory==="DryFruits"){
+    else if(selectedCategory==="Dry Fruits"){
       setJdata(DryFruits);
     }
     else if(selectedCategory==="Grains"){
@@ -63,13 +67,13 @@ export default function ItemProduct({route, navigation}) {
     else if(selectedCategory==="Greens"){
       setJdata(Greens);
     }
-    else if(selectedCategory==="HouseholdProducts"){
+    else if(selectedCategory==="Household Products"){
       setJdata(HouseholdProducts);
     }
-    else if(selectedCategory==="HygieneProducts"){
+    else if(selectedCategory==="Hygiene Products"){
       setJdata(HygieneProducts);
     }
-    else if(selectedCategory==="KitchenCommons"){
+    else if(selectedCategory==="Kitchen Commons"){
       setJdata(KitchenCommons);
     }
     else if(selectedCategory==="Meat"){
@@ -124,25 +128,40 @@ export default function ItemProduct({route, navigation}) {
   
     const handleItemPress = (item) => {
       // Toggle selection for the clicked item
+      
       setSelectedItem(item);
       console.log(item);
+      Toast.show({
+        type: 'success',
+        text1: `\u{263A} ${item.english} selected!`,
+        text2:"Press \t \u{2714} Confirm" ,
+        visibilityTime: 1300,
+        text1Style: { color: "#00895c", fontSize: 16 },
+        text2Style: { color: "#00695c", fontSize: 14 },
+        position: "top",
+
+    });
     
     };
   return (
+ 
     <SafeAreaView style={{ width: wp(100), height: hp(85) }}>
+     
       <View style={{ width: wp(95), height: hp(7.5) }} className=" bg-teal-50 self-center ">
+      
         <Searchbar
           style={{ backgroundColor: "#f0fdfa" }}
           inputStyle={{ color: "#00695C" }}
           selectionColor={"#00695C"}
           iconColor='#00695C'
           rippleColor={'#B2DFDB'}
-          elevation={2}
+          elevation={1}
           placeholder="Search"
           onChangeText={onChangeSearch}
           value={searchQuery}
         />
       </View>
+      <Toast style={{ zIndex: 1000 }} />
       <View style={{ height: hp(63) }} className="my-2 py-1 px-1">
         {Object.keys(Jdata).length===0?<ActivityIndicator/>:
         <SectionList
@@ -150,11 +169,28 @@ export default function ItemProduct({route, navigation}) {
           sections={sections}
           keyExtractor={(item, index) => item.id.toString()}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => handleItemPress(item)} className="active:bg-teal-100">
-              <View className="px-3  py-1 m-1">
+            <TouchableOpacity onPress={() => handleItemPress(item)} className="active:bg-teal-100 rounded-2xl "  >
+              {selectedItem.english===item.english?<View className="px-3 rounded-2xl bg-teal-100/[0.6] py-1 m-1 flex flex-row justify-between">
+                <View className="flex flex-col">
                 <Text className="text-teal-800 text-base">{item.english}</Text>
                 <Text className="text-teal-400 font-normal text-xs ">{item.tamil}</Text>
+                </View>
+                <View className="flex flex-col justify-center">
+                
+                <LottieView source={require("../../assets/CheckLot.json")} autoSize  style={{width:wp(5.5),height:hp(5.3)}} autoPlay />
+                </View>
               </View>
+              :
+              <View className="px-3  py-1 m-1 flex flex-row justify-between">
+                <View className="flex flex-col">
+                <Text className="text-teal-800 text-base">{item.english}</Text>
+                <Text className="text-teal-400 font-normal text-xs ">{item.tamil}</Text>
+                </View>
+                <View className="flex flex-col justify-center">
+               
+                </View>
+              </View>}
+
             </TouchableOpacity>
 
           )}
@@ -168,7 +204,7 @@ export default function ItemProduct({route, navigation}) {
         <Button style={{ width: wp(90), height: hp(6) }} title="Next" labelStyle={{ color: "#fff", fontSize: hp(2.5) }} className="bg-teal-600 p-1  mx-2 my-3 "
           icon="check-bold"
           onPress={() => {
-            console.log("Item Selected")
+            // console.log("Item Selected")
             selectedItem["category"]=selectedCategory;
             navigation.navigate("New",{selectedItem})
           }}>Confirm</Button>

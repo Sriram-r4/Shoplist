@@ -2,37 +2,39 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { TextInput } from 'react-native';
-import { Surface ,Button} from 'react-native-paper';
+import { Surface, Button } from 'react-native-paper';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
 
 
-export default function MultiInputTable({ navigation, itemData, itemname}) {
+export default function MultiInputTable({ navigation, itemData, itemname, handleItemData }) {
 
   const [itemName, setItemName] = useState("");
   const [itemCategory, setItemCategory] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [amount, setAmount] = useState(1);
   const { selectedItem } = itemname;
- 
+
   useEffect(() => {
     itemData({ quantity, amount });
 
-  }, [quantity, amount])
+  }, [quantity, amount]);
+
   useEffect(() => {
     if (selectedItem != undefined) {
-      console.log(selectedItem.english)
+      // console.log(selectedItem.english)
       setItemName(selectedItem.english);
       setItemCategory(selectedItem.category);
     }
 
   }, [itemname])
+
   return (
     <View>
       <Surface style={{ width: wp(95) }} className="self-center p-1 my-4 mx-2 bg-gray-50  rounded-lg">
         <View style={{ width: wp(93) }} className='flex p-1 items-center border-teal-700 rounded'>
-          <View style={{ width: wp(90), height: hp(6), borderBottomWidth: 0.3, borderBottomColor: "#00897B" }} className='rounded  m-1 p-1'>
-            <TouchableOpacity className='flex-row justify-between ' onPress={() => { navigation.navigate('Items') }}>
+          <View style={{ width: wp(90), height: hp(6), borderBottomWidth: 0.3, borderBottomColor: "#00897B" }} className='rounded p-1'>
+            <TouchableOpacity className='flex-row justify-between '  onPress={() => { navigation.navigate('Items') }}>
               <Text className='text-xl  p-1 text-teal-700 font-normal  '>Select Item</Text>
               <View style={{ height: hp(5) }} className='p-1  items-center flex  flex-row  '>
                 <Text className='text-lg  pb-0.7 text-teal-700 font-semibold '>{itemName == "" ? "" : itemName}</Text>
@@ -40,7 +42,7 @@ export default function MultiInputTable({ navigation, itemData, itemname}) {
               </View>
             </TouchableOpacity>
           </View>
-          <View style={{ width: wp(90), height: hp(6), borderBottomWidth: 0.3, borderBottomColor: "#00897B" }} className='rounded justify-between m-1 p-1 flex flex-row'>
+          <View style={{ width: wp(90), height: hp(6), borderBottomWidth: 0.3, borderBottomColor: "#00897B" }} className='rounded justify-between p-1 flex flex-row'>
             <Text className='text-xl text-teal-700 font-normal p-1'>Quantity</Text>
             <View className='flex-row'>
               <View className='p-1'>
@@ -65,7 +67,7 @@ export default function MultiInputTable({ navigation, itemData, itemname}) {
               </View>
             </View>
           </View>
-          <View style={{ width: wp(90), height: hp(6) }} className='rounded justify-between  m-1 p-1 flex flex-row'>
+          <View style={{ width: wp(90), height: hp(6), borderBottomWidth: 0.3, borderBottomColor: "#00897B" }} className='rounded justify-between  p-1 flex flex-row'>
             <Text className='text-xl text-teal-700 font-normal p-1'>Amount</Text>
             <View className='flex-row'>
               <View className='p-1'>
@@ -93,10 +95,24 @@ export default function MultiInputTable({ navigation, itemData, itemname}) {
               </View>
             </View>
           </View>
+          <View style={{ width: wp(90), height: hp(6) }} className='rounded justify-between  p-1 flex flex-row'>
+            <Text className='text-xl text-teal-700 font-normal p-1'>Status</Text>
+            <View className='flex-row'>
+              
+             
+              
+            </View>
+          </View>
         </View>
 
       </Surface>
-      <Button style={{ width: wp(90), height: hp(5) }} title="Add Item" labelStyle={{ color: "#fff" }} className="bg-teal-600 mx-2 " onPress={() => { console.log("Item Added");console.log({quantity,amount,itemName,itemCategory}) }}>Add Item</Button>
+      <Button style={{ width: wp(90), height: hp(5)}}
+        title="Add Item" labelStyle={{ color: "#fff" }}
+        className="bg-teal-600 mx-2 "
+        onPress={() => {
+          if(selectedItem!==undefined){
+          handleItemData({ quantity, amount, itemName, itemCategory });}
+        }}>Add Item</Button>
     </View>
   )
 }

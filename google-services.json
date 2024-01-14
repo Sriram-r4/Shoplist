@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "382244951826",
+    "project_id": "shoplist-9c9cf",
+    "storage_bucket": "shoplist-9c9cf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382244951826:android:2f1cce493cb7256d2b85cb",
+        "android_client_info": {
+          "package_name": "com.shoplist"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmk5hNJIZgzoDY-3_farXAs66tN5pm-U4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

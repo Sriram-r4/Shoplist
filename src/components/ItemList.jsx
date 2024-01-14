@@ -41,15 +41,15 @@ function ItemList({navigation}) {
   );
   
   const handleItemPress=(item)=>{
-    console.log(item);
+    console.log("category:",item);
     setSelectedCategory(item.title);
-    navigation.navigate('ItemProduct',{category:item.value});
+    navigation.navigate('ItemProduct',{category:item.title});
   }
 
 
   return (
-    <SafeAreaView style={{width:wp(100),height:hp(87.2)}} >
-     <View style={{width:wp(97),height:hp(81)}} className=" mx-1.5  p-1  ">
+    
+     <View style={{width:wp(97),height:hp(85)}} className=" mx-1.5 p-1 ">
       <FlatList
       data={category}
       renderItem={renderCategoryItem}
@@ -57,7 +57,7 @@ function ItemList({navigation}) {
       showsVerticalScrollIndicator={false}
       />
      </View>   
-    </SafeAreaView>
+    
   )
 }
 
