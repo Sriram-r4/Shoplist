@@ -1,13 +1,13 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity,Alert } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { TextInput } from 'react-native';
-import { Surface, Button } from 'react-native-paper';
+import { Surface, Button, ToggleButton } from 'react-native-paper';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
 
 
-export default function MultiInputTable({ navigation, itemData, itemname, handleItemData }) {
+export default function MultiInputTable({ navigation, itemData, itemname, handleItemData ,disabled}) {
 
   const [itemName, setItemName] = useState("");
   const [itemCategory, setItemCategory] = useState("");
@@ -29,12 +29,17 @@ export default function MultiInputTable({ navigation, itemData, itemname, handle
 
   }, [itemname])
 
+ 
+  const [status, setStatus] = useState(''); 
+ 
+ 
+
   return (
     <View>
       <Surface style={{ width: wp(95) }} className="self-center p-1 my-4 mx-2 bg-gray-50  rounded-lg">
         <View style={{ width: wp(93) }} className='flex p-1 items-center border-teal-700 rounded'>
           <View style={{ width: wp(90), height: hp(6), borderBottomWidth: 0.3, borderBottomColor: "#00897B" }} className='rounded p-1'>
-            <TouchableOpacity className='flex-row justify-between '  onPress={() => { navigation.navigate('Items') }}>
+            <TouchableOpacity className='flex-row justify-between ' onPress={() => { navigation.navigate('Items') }}>
               <Text className='text-xl  p-1 text-teal-700 font-normal  '>Select Item</Text>
               <View style={{ height: hp(5) }} className='p-1  items-center flex  flex-row  '>
                 <Text className='text-lg  pb-0.7 text-teal-700 font-semibold '>{itemName == "" ? "" : itemName}</Text>
@@ -95,23 +100,54 @@ export default function MultiInputTable({ navigation, itemData, itemname, handle
               </View>
             </View>
           </View>
-          <View style={{ width: wp(90), height: hp(6) }} className='rounded justify-between  p-1 flex flex-row'>
-            <Text className='text-xl text-teal-700 font-normal p-1'>Status</Text>
-            <View className='flex-row'>
+          <View style={{ width: wp(90), height: hp(6) }} className='rounded p-1'>
+            <TouchableOpacity className='flex-row justify-between '
+              onPress={() => {
+                console.log("Pressed");
+               
+              }}>
+              <Text className='text-xl  p-1 text-teal-700 font-normal  '>Status</Text>
               
-             
-              
-            </View>
+              <View>
+                <ToggleButton.Row onValueChange={value => {setStatus(value)
+                console.log(value )}} value={status}
+                 >
+                  <ToggleButton rippleColor={"#fee2e2"} icon={() => (
+                    <MaterialIcons name="circle" style={{color:"#f87171"}} size={25}/>
+                    )} value="red" />
+                  <ToggleButton rippleColor={"#fef9c3"}  icon={() => (
+                    <MaterialIcons name="circle" style={{color:"#fbbf24"}} size={25}/>
+                    )} value="yellow" />
+                  <ToggleButton rippleColor={"#dcfce7"} icon={() => (
+                    <MaterialIcons name="circle" style={{color:"#4ade80"}}  selectionColor={{color:"#dcfce7"}} size={25}/>
+                    )} value="green" />
+                </ToggleButton.Row>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
 
       </Surface>
-      <Button style={{ width: wp(90), height: hp(5)}}
+      <Button style={{ width: wp(90), height: hp(5) }}
         title="Add Item" labelStyle={{ color: "#fff" }}
-        className="bg-teal-600 mx-2 "
+        className={disabled?"bg-teal-200 mx-2 ":"bg-teal-600 mx-2 "}
+        disabled={disabled}
         onPress={() => {
-          if(selectedItem!==undefined){
-          handleItemData({ quantity, amount, itemName, itemCategory });}
+          if (selectedItem !== undefined&&(status!==null&&status!=='')) {
+            
+            handleItemData({ quantity, amount, itemName, itemCategory,status });
+          
+          }
+          else{
+            Alert.alert(
+              '\u{1F61E} Missing Details!',
+              'Fill all the details of the Selected item',
+              [
+                { text: 'OK', onPress: () => { {  } } },
+              ],
+    
+            );
+          }
         }}>Add Item</Button>
     </View>
   )
