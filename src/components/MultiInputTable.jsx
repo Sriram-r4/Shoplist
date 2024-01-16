@@ -9,30 +9,27 @@ import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
 export default function MultiInputTable({ navigation, itemData, itemname, handleItemData ,disabled}) {
 
+  //item states
   const [itemName, setItemName] = useState("");
   const [itemCategory, setItemCategory] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [amount, setAmount] = useState(1);
+  const [status, setStatus] = useState(''); 
+
+  //selected item Bame from ItemProduct
   const { selectedItem } = itemname;
 
-  useEffect(() => {
-    itemData({ quantity, amount });
-
-  }, [quantity, amount]);
-
+ 
+  //To set Item Name and Category
   useEffect(() => {
     if (selectedItem != undefined) {
-      // console.log(selectedItem.english)
       setItemName(selectedItem.english);
       setItemCategory(selectedItem.category);
     }
-
   }, [itemname])
 
  
-  const [status, setStatus] = useState(''); 
- 
- 
+  
 
   return (
     <View>
@@ -101,16 +98,12 @@ export default function MultiInputTable({ navigation, itemData, itemname, handle
             </View>
           </View>
           <View style={{ width: wp(90), height: hp(6) }} className='rounded p-1'>
-            <TouchableOpacity className='flex-row justify-between '
-              onPress={() => {
-                console.log("Pressed");
-               
-              }}>
+            <View className='flex-row justify-between '>
               <Text className='text-xl  p-1 text-teal-700 font-normal  '>Status</Text>
               
               <View>
                 <ToggleButton.Row onValueChange={value => {setStatus(value)
-                console.log(value )}} value={status}
+              }} value={status}
                  >
                   <ToggleButton rippleColor={"#fee2e2"} icon={() => (
                     <MaterialIcons name="circle" style={{color:"#f87171"}} size={25}/>
@@ -123,7 +116,7 @@ export default function MultiInputTable({ navigation, itemData, itemname, handle
                     )} value="green" />
                 </ToggleButton.Row>
               </View>
-            </TouchableOpacity>
+            </View>
           </View>
         </View>
 
@@ -134,16 +127,19 @@ export default function MultiInputTable({ navigation, itemData, itemname, handle
         disabled={disabled}
         onPress={() => {
           if (selectedItem !== undefined&&(status!==null&&status!=='')) {
-            
             handleItemData({ quantity, amount, itemName, itemCategory,status });
-          
+            setItemName("");
+            setItemCategory("");
+            setQuantity(1);
+            setAmount(1);
+            setStatus(null)
           }
           else{
             Alert.alert(
               '\u{1F61E} Missing Details!',
               'Fill all the details of the Selected item',
               [
-                { text: 'OK', onPress: () => { {  } } },
+                { text: 'OK', onPress: () => {{ }} },
               ],
     
             );

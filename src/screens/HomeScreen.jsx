@@ -6,14 +6,19 @@ import profileImage from '../../assets/profileImage.png'
 import { collection, getDocs} from 'firebase/firestore';
 import { FIREBASE_DB } from '../../firebaseConfig';
 import { useIsFocused } from '@react-navigation/native'
-
+import {  usefirebaseOrderedList } from '../firebase/Ordered_list';
 
 export default function HomeScreen() {
   const [currentItems, setCurrentItems] = useState([])
 
   const isFocusedScreen=useIsFocused();
-     
+  
+  const [confirmedItems,fetchFinalDataFromFirestore]=usefirebaseOrderedList()
+  
  
+  useEffect(()=>{
+    fetchFinalDataFromFirestore();
+  },[isFocusedScreen])
 
   const list_items = [
     { id: 3, text: 'Item 3' },
@@ -56,37 +61,42 @@ export default function HomeScreen() {
         id: doc.id,
         ...doc.data(),
       }));
-      console.log(newData);
+      
       setCurrentItems(newData);
     });
   };
 
   useEffect(() => {
     fetchDataFromFirestore();
-    console.log("Items from Firestore Database ,called from Home", currentItems)
-  }, [isFocusedScreen]);//item_id
+  }, [isFocusedScreen]);
 
- 
+ function getStatusClass(status){
+  if(status=="red"){
+    return 'rounded-full justify-center bg-red-400 m-2 p-1 ';
+  }
+  else if(status=="green"){
+    return 'rounded-full justify-center bg-green-400 m-2 p-1 '
+  }
+  else{
+    return 'rounded-full justify-center bg-yellow-400 m-2 p-1 '
+  }
+ }
 
-  const renderItem = ({ item }) => (
-    <View style={{ width: wp(90), height: hp(10), alignSelf: 'center' }} key={item.id} className='bg-teal-300/[0.2] flex-row  m-2 rounded-2xl'>
+  const renderConfirmedItem = ({item} ) => (
+    <View style={{ width: wp(90), height: hp(10), alignSelf: 'center' }} key={item.item_id} className='bg-teal-300/[0.2] flex-row  m-2 rounded-2xl'>
       <View style={{ width: wp(60), height: hp(10) }} >
-        <Text style={{ height: hp(4) }} className="text-teal-800 font-medium text-lg mt-2 mx-2">{item.text}</Text>
-        <Text style={{ height: hp(3) }} className="text-teal-800 font-normal  mx-2">First Item</Text>
+        <Text style={{ height: hp(4) }} className="text-teal-800 font-medium text-lg mt-2 mx-2">{item.itemName}</Text>
+        <Text style={{ height: hp(3) }} className="text-teal-800 font-normal  mx-2">{item.itemCategory}</Text>
       </View>
       <View style={{ width: wp(15), height: hp(10) }} >
         <Text style={{ width: wp(14), height: hp(6) }} className='text-teal-800 font-normal text-sm text-center p-1 m-2'>Nov 19</Text>
       </View>
       <View style={{ width: wp(15), height: hp(10) }} className='flex justify-center' >
-        <View style={{ width: wp(9), height: hp(4.7), aspectRatio: 1 }} className='rounded-full justify-center bg-red-400 m-2 p-1 '></View>
+        <View style={{ width: wp(9), height: hp(4.7), aspectRatio: 1 }} className={getStatusClass(item.status)}></View>
       </View>
     </View>
   );
-  // const renderHitem = ({ hitem }) => (
-  //   <View style={{ width: wp(50), height: hp(15), alignSelf: 'center' }} key={hitem.id} className='bg-teal-200/[0.2] m-2  rounded-2xl'>
-  //     <Text>{hitem.text}</Text>
-  //     </View> 
-  // );
+
 
 
   return (
@@ -131,27 +141,16 @@ export default function HomeScreen() {
         </ScrollView>
       </View>
       :<View></View>}
-      {currentItems.length===0?<View style={{ width: wp(95), height: hp(60), alignSelf: 'center' }} className=' m-2 rounded-2xl'>
+      <View style={currentItems.length===0?{ width: wp(95), height: hp(60), alignSelf: 'center' }:{ width: wp(95), height: hp(60), alignSelf: 'center' }} className=' m-2 rounded-2xl'>
         <Text style={{ height: hp(4) }} className='text-teal-900 font-medium  mx-2 mb-1 text-xl'>Your Items</Text>
         <View style={{ height: hp(54), width: wp(95) }} >
           <FlatList style={{ width: wp(93), alignSelf: 'center', }}
-            data={list_items}
-            renderItem={renderItem}
+            data={confirmedItems}
+            renderItem={renderConfirmedItem}
             showsVerticalScrollIndicator={false}
           />
         </View>
       </View>
-      :
-      <View style={{ width: wp(95), height: hp(60), alignSelf: 'center' }} className='m-0.5 rounded-2xl'>
-        <Text style={{ height: hp(4) }} className='text-teal-900 font-medium  mx-2 mb-1 text-xl'>Your Items</Text>
-        <View style={{ height: hp(28), width: wp(95) }} >
-          <FlatList style={{ width: wp(93), alignSelf: 'center', }}
-            data={list_items}
-            renderItem={renderItem}
-            showsVerticalScrollIndicator={false}
-          />
-        </View>
-      </View>}
     </SafeAreaView>
 
   )

@@ -69,7 +69,7 @@ export default function AppNavigation() {
 
     function HomeTabs() {
         return (
-        <Tab.Navigator initialRouteName='New' screenOptions={({ route }) => ({
+        <Tab.Navigator initialRouteName='Home' screenOptions={({ route }) => ({
             headerShown: false,
             tabBarIcon: ({ focused }) => {
               let iconName;

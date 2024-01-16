@@ -1,7 +1,8 @@
 import { Alert } from 'react-native'
-import { collection, addDoc, getDocs, query, where, limit, deleteDoc, updateDoc } from 'firebase/firestore';
-import { FIREBASE_DB } from '../../firebaseConfig';
+import { collection, addDoc, getDocs, query, where, limit, deleteDoc, updateDoc ,serverTimestamp} from 'firebase/firestore';
+import { FIREBASE_APP, FIREBASE_DB } from '../../firebaseConfig';
 import React, { useEffect, useState } from 'react'
+import { usefirebaseOrderedList } from './Ordered_list';
 
 export function usefirebaseItemList(navigation) {
     const [items, setItems] = useState([]);//item data from firestore
@@ -20,7 +21,7 @@ export function usefirebaseItemList(navigation) {
 
             if (items.length !== 0) {
                 let checkItem = items.filter(i => i.itemName == item.itemName);
-                console.log("cardItem:", item);
+
                 if (checkItem.length == 0) {
                     item.item_id = items.length + 1;
                     addDataToFirestore(item)
@@ -36,7 +37,7 @@ export function usefirebaseItemList(navigation) {
 
                     );
                 }
-                console.log(item)
+               
             }
             else {
                 item.item_id = items.length + 1;
@@ -53,18 +54,23 @@ export function usefirebaseItemList(navigation) {
                 id: doc.id,
                 ...doc.data(),
             }));
-            setItems(newData);
-            console.log(newData);
-            console.log("Items from Firestore Database", items)
+            return Promise.all(newData);
+            
+        }).then((data)=>{
+            setItems(data);
+            console.log("inside hook",data);
+        }).catch((error) => {
+            console.error('Error  document:', error);
         });
     };
     const addDataToFirestore = (data) => {
 
         const collectionRef = collection(FIREBASE_DB, 'item-list');
         setDisabled(true);
-        console.log("data to add:", data)
+        
+        const dataWithTimeStamp={...data,timeStamp: serverTimestamp()}
 
-        addDoc(collectionRef, data).then((docRef) => {
+        addDoc(collectionRef, dataWithTimeStamp).then((docRef) => {
             console.log('Document written with ID: ', docRef.id);
             setTimeout(() => setDisabled(false), 5000)
             setItem_id(item_id + 1);
@@ -103,7 +109,7 @@ export function usefirebaseItemList(navigation) {
                     [
                         {
                             text: 'OK', onPress: () => {
-                                console.log('submitted');
+                               
                             }
                         }
 
@@ -122,7 +128,6 @@ export function usefirebaseItemList(navigation) {
         const documentIdToUpdate = item.item_id;
         const collectionRef = collection(FIREBASE_DB, 'item-list');
         const queryRef = query(collectionRef, where('item_id', '==', documentIdToUpdate), limit(1));
-        console.log("update", item);
 
         getDocs(queryRef)
             .then((querySnapshot) => {
@@ -145,7 +150,6 @@ export function usefirebaseItemList(navigation) {
                         {
                             text: 'OK',
                             onPress: () => {
-                                console.log('submitted');
                                 navigation.navigate("New", items);
                             }
                         }
@@ -158,5 +162,7 @@ export function usefirebaseItemList(navigation) {
             });
 
     }
+
+    
     return [items, disabled, handleItemData, updateDocument, deleteDocument, fetchDataFromFirestore];
 }

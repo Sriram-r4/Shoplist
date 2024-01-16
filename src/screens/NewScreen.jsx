@@ -12,26 +12,31 @@ import { Button } from 'react-native-paper'
 import CustomButton from '../components/CustomButton';
 import Toast from 'react-native-toast-message';
 import { usefirebaseItemList } from '../firebase/Item_list';
+import { usefirebaseOrderedList} from '../firebase/Ordered_list';
+import { collection, getDocs} from 'firebase/firestore';
+import { FIREBASE_DB } from '../../firebaseConfig';
 
 export default function NewScreen({ navigation, route }) {
     const selectedItem = route.params;
   
-
-    const [items,disabled,handleItemData,updateDocument,deleteDocument,fetchDataFromFirestore]= usefirebaseItemList(navigation);
     //dont remove updateDocument even if it is unused 
-    //if you try to remove then it shows item_id does not exists  
+    //if you try to remove then it shows item_id does not exists 
+    const [items,disabled,handleItemData,updateDocument,deleteDocument,fetchDataFromFirestore]= usefirebaseItemList(navigation);
+     
+   const [confirmedItems,fetchFinalDataFromFirestore,addFinalDataToFirestore]=usefirebaseOrderedList();
     
+
+   
+   
     useEffect(()=>{
       fetchDataFromFirestore()
-        
+      console.log("itemlist from firebase",items);
     },[route.params])
     
-    const [item, setItem] = useState({})
 
     const stepperRef = useRef();
 
     const handleSubmit = React.useCallback(() => {
-
         Alert.alert(
             '\u{1F914} Add Items?',
             "Added Items Will be displayed in Home",
@@ -39,12 +44,13 @@ export default function NewScreen({ navigation, route }) {
 
                 {
                     text: 'CANCEL', onPress: () => {
-                        console.log('CANCEL');
+                       
                     }
                 },
                 {
                     text: 'OK', onPress: () => {
-                        console.log('submitted');
+                        console.log("Finalized Items to add",items)
+                        items.map(i => addFinalDataToFirestore(i));
                         stepperRef.current.prevStep();
                     }
                 }
@@ -52,9 +58,6 @@ export default function NewScreen({ navigation, route }) {
             ],
 
         );
-
-
-
     }, [])
   
     const handlePrevious = React.useCallback(() => {
@@ -65,9 +68,7 @@ export default function NewScreen({ navigation, route }) {
         console.log('navigate to:', nextStep);
     }, []);
 
-    function itemData(itm) {
-        setItem(itm);
-    }
+  
    
 
     const ProgressStepStyles = {
@@ -120,7 +121,7 @@ export default function NewScreen({ navigation, route }) {
                     <View style={{ width: wp(100), height: hp(61.7) }} className='flex items-center p-1 justify-center'>
                         <View style={{ width: wp(95), height: hp(59) }} className='px-3  py-2 m-1'>
                             <Text className="text-teal-700 text-xl text-center font-medium">Enter Table Details</Text>
-                            <MultiInputTable itemData={itemData} navigation={navigation} itemname={selectedItem !== undefined ? selectedItem : {}} handleItemData={handleItemData} disabled={disabled} />
+                            <MultiInputTable  navigation={navigation} itemname={selectedItem !== undefined ? selectedItem : {}} handleItemData={handleItemData} disabled={disabled} />
                             <ItemCard items={items} navigation={navigation} showCardMessage={showCardMessage} deleteDocument={deleteDocument} />
                             <Toast style={{ zIndex: 1000 }} />
                         </View>

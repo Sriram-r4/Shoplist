@@ -18,7 +18,7 @@ export default function DynamicInputTable(props) {
             <DataTable.Title style={{flex:1,justifyContent:"space-between"}}>Item</DataTable.Title>
             <DataTable.Title style={{flex:0.4,justifyContent:"space-around"}}>Status</DataTable.Title>
             <DataTable.Title style={{flex:0.3,justifyContent:"space-around"}}>Qty</DataTable.Title>
-            <DataTable.Title style={{flex:0.4,justifyContent:"space-around"}}>Amt(Kg)</DataTable.Title>
+            <DataTable.Title style={{flex:0.4,justifyContent:"space-around"}}>Amt</DataTable.Title>
         </DataTable.Header>
         <ScrollView showsVerticalScrollIndicator={false} style={{height:hp(44.8)}}>
         {TableData.sort((a, b) => a.item_id - b.item_id).map((item,num) => (<DataTable.Row style={{borderBottomColor:"#76a89f"}}  key={num}>
