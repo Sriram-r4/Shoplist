@@ -7,7 +7,7 @@ export function usefirebaseItemList(navigation) {
     const [items, setItems] = useState([]);//item data from firestore
     const [item_id, setItem_id] = useState(1);
     const [disabled, setDisabled] = useState(false);//Add Item button state(disabled or not)
-    
+
 
     useEffect(() => {
         fetchDataFromFirestore();
@@ -133,10 +133,10 @@ export function usefirebaseItemList(navigation) {
                         updatePromises.push(updateDoc(docRef, item));
                     });
                     return Promise.all(updatePromises);
-                }               
+                }
 
             })
-            .then(() => {              
+            .then(() => {
                 
                 Alert.alert(
                     '\u{1F642} Updated Successfully',
@@ -146,7 +146,7 @@ export function usefirebaseItemList(navigation) {
                             text: 'OK',
                             onPress: () => {
                                 console.log('submitted');
-                                navigation.navigate("New",items);
+                                navigation.navigate("New", items);
                             }
                         }
                     ]

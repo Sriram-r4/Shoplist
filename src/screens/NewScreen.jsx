@@ -18,12 +18,13 @@ export default function NewScreen({ navigation, route }) {
   
 
     const [items,disabled,handleItemData,updateDocument,deleteDocument,fetchDataFromFirestore]= usefirebaseItemList(navigation);
-    
+    //dont remove updateDocument even if it is unused 
+    //if you try to remove then it shows item_id does not exists  
     
     useEffect(()=>{
       fetchDataFromFirestore()
         
-    },[])
+    },[route.params])
     
     const [item, setItem] = useState({})
 

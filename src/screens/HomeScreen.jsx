@@ -5,11 +5,14 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import profileImage from '../../assets/profileImage.png'
 import { collection, getDocs} from 'firebase/firestore';
 import { FIREBASE_DB } from '../../firebaseConfig';
+import { useIsFocused } from '@react-navigation/native'
 
 
 export default function HomeScreen() {
   const [currentItems, setCurrentItems] = useState([])
 
+  const isFocusedScreen=useIsFocused();
+     
  
 
   const list_items = [
@@ -61,7 +64,7 @@ export default function HomeScreen() {
   useEffect(() => {
     fetchDataFromFirestore();
     console.log("Items from Firestore Database ,called from Home", currentItems)
-  }, []);//item_id
+  }, [isFocusedScreen]);//item_id
 
  
 
@@ -129,7 +132,7 @@ export default function HomeScreen() {
       </View>
       :<View></View>}
       {currentItems.length===0?<View style={{ width: wp(95), height: hp(60), alignSelf: 'center' }} className=' m-2 rounded-2xl'>
-        <Text style={{ height: hp(4) }} className='text-teal-900 font-medium  mx-2 mb-1 text-xl'>Your Lists</Text>
+        <Text style={{ height: hp(4) }} className='text-teal-900 font-medium  mx-2 mb-1 text-xl'>Your Items</Text>
         <View style={{ height: hp(54), width: wp(95) }} >
           <FlatList style={{ width: wp(93), alignSelf: 'center', }}
             data={list_items}
@@ -140,7 +143,7 @@ export default function HomeScreen() {
       </View>
       :
       <View style={{ width: wp(95), height: hp(60), alignSelf: 'center' }} className='m-0.5 rounded-2xl'>
-        <Text style={{ height: hp(4) }} className='text-teal-900 font-medium  mx-2 mb-1 text-xl'>Your Lists</Text>
+        <Text style={{ height: hp(4) }} className='text-teal-900 font-medium  mx-2 mb-1 text-xl'>Your Items</Text>
         <View style={{ height: hp(28), width: wp(95) }} >
           <FlatList style={{ width: wp(93), alignSelf: 'center', }}
             data={list_items}
