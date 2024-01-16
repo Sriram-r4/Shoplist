@@ -1,8 +1,7 @@
 import { View, Text } from 'react-native'
-import React, { useRef, useEffect } from 'react'
+import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
-import UnderDev from '../../assets/UnderDev.png'
 import LottieView from 'lottie-react-native';
 
 export default function AccountScreen() {

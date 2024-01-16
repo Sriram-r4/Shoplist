@@ -16,6 +16,7 @@ import AccountScreen from '../screens/AccountScreen';
 import { MaterialIcons } from '@expo/vector-icons';
 import ItemList from '../components/ItemList';
 import ItemProduct from '../components/ItemProduct';
+import UpdateScreen from '../screens/UpdateScreen';
 
 
 const Stack=createNativeStackNavigator();
@@ -52,6 +53,7 @@ export default function AppNavigation() {
         <Stack.Screen name="HomeTab" component={HomeTabs} />
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="Items" component={ItemStack} />
+        <Stack.Screen name="Update" component={UpdateScreen}/>
        </Stack.Navigator>
       )
     }
@@ -67,7 +69,7 @@ export default function AppNavigation() {
 
     function HomeTabs() {
         return (
-        <Tab.Navigator initialRouteName='Home' screenOptions={({ route }) => ({
+        <Tab.Navigator initialRouteName='New' screenOptions={({ route }) => ({
             headerShown: false,
             tabBarIcon: ({ focused }) => {
               let iconName;
