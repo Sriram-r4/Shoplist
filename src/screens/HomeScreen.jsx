@@ -141,9 +141,9 @@ export default function HomeScreen() {
         </ScrollView>
       </View>
       :<View></View>}
-      <View style={currentItems.length===0?{ width: wp(95), height: hp(60), alignSelf: 'center' }:{ width: wp(95), height: hp(60), alignSelf: 'center' }} className=' m-2 rounded-2xl'>
+      <View style={ {width: wp(95), height: hp(60), alignSelf: 'center' }} className=' m-2 rounded-2xl'>
         <Text style={{ height: hp(4) }} className='text-teal-900 font-medium  mx-2 mb-1 text-xl'>Your Items</Text>
-        <View style={{ height: hp(54), width: wp(95) }} >
+        <View style={currentItems.length===0?({ height: hp(54), width: wp(95) }):({ height: hp(28), width: wp(95) })} >
           <FlatList style={{ width: wp(93), alignSelf: 'center', }}
             data={confirmedItems}
             renderItem={renderConfirmedItem}

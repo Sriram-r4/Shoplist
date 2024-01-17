@@ -39,8 +39,8 @@ export function usefirebaseOrderedList() {
            
         }).then((data)=>{
             setConfirmedItems(data);
-            console.log(data);
-            console.log("confirmed Items from Firestore Database", confirmedItems)
+            // console.log(data);
+            // console.log("confirmed Items from Firestore Database", confirmedItems)
         }).catch((error) => {
             console.error('Error  document:', error);
         });

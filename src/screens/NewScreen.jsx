@@ -23,20 +23,18 @@ export default function NewScreen({ navigation, route }) {
     //if you try to remove then it shows item_id does not exists 
     const [items,disabled,handleItemData,updateDocument,deleteDocument,fetchDataFromFirestore]= usefirebaseItemList(navigation);
      
-   const [confirmedItems,fetchFinalDataFromFirestore,addFinalDataToFirestore]=usefirebaseOrderedList();
+    const [confirmedItems,fetchFinalDataFromFirestore,addFinalDataToFirestore]=usefirebaseOrderedList();
     
-
    
+    const stepperRef = useRef();
    
     useEffect(()=>{
       fetchDataFromFirestore()
       console.log("itemlist from firebase",items);
     },[route.params])
-    
-
-    const stepperRef = useRef();
 
     const handleSubmit = React.useCallback(() => {
+        console.log("checking items in submit",items)
         Alert.alert(
             '\u{1F914} Add Items?',
             "Added Items Will be displayed in Home",
@@ -66,6 +64,7 @@ export default function NewScreen({ navigation, route }) {
 
     const handleNext = React.useCallback(() => {
         console.log('navigate to:', nextStep);
+       
     }, []);
 
   

@@ -58,7 +58,7 @@ export function usefirebaseItemList(navigation) {
             
         }).then((data)=>{
             setItems(data);
-            console.log("inside hook",data);
+            // console.log("inside hook",data);
         }).catch((error) => {
             console.error('Error  document:', error);
         });
