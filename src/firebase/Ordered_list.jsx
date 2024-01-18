@@ -35,12 +35,11 @@ export function usefirebaseOrderedList() {
                 id: doc.id,
                 ...doc.data(),
             }));
-            return Promise.all(newData);
+            setConfirmedItems(newData);
+            console.log(newData)
+            return Promise.resolve()
+            
            
-        }).then((data)=>{
-            setConfirmedItems(data);
-            // console.log(data);
-            // console.log("confirmed Items from Firestore Database", confirmedItems)
         }).catch((error) => {
             console.error('Error  document:', error);
         });

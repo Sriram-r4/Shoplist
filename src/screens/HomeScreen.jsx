@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, FlatList } from 'react-native'
+import { View, Text, Image, ScrollView, FlatList, TouchableOpacity } from 'react-native'
 import React, { useState,useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
@@ -7,8 +7,9 @@ import { collection, getDocs} from 'firebase/firestore';
 import { FIREBASE_DB } from '../../firebaseConfig';
 import { useIsFocused } from '@react-navigation/native'
 import {  usefirebaseOrderedList } from '../firebase/Ordered_list';
+import { getDayFromDateTimestamp } from '../firebase/dateConversion'
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   const [currentItems, setCurrentItems] = useState([])
 
   const isFocusedScreen=useIsFocused();
@@ -83,18 +84,20 @@ export default function HomeScreen() {
  }
 
   const renderConfirmedItem = ({item} ) => (
+    <TouchableOpacity onPress={()=>{navigation.navigate("Item",{item})}}> 
     <View style={{ width: wp(90), height: hp(10), alignSelf: 'center' }} key={item.item_id} className='bg-teal-300/[0.2] flex-row  m-2 rounded-2xl'>
       <View style={{ width: wp(60), height: hp(10) }} >
         <Text style={{ height: hp(4) }} className="text-teal-800 font-medium text-lg mt-2 mx-2">{item.itemName}</Text>
         <Text style={{ height: hp(3) }} className="text-teal-800 font-normal  mx-2">{item.itemCategory}</Text>
       </View>
       <View style={{ width: wp(15), height: hp(10) }} >
-        <Text style={{ width: wp(14), height: hp(6) }} className='text-teal-800 font-normal text-sm text-center p-1 m-2'>Nov 19</Text>
+        <Text style={{ width: wp(14), height: hp(6) }} className='text-teal-800 font-normal text-sm text-center p-1 m-2'>{getDayFromDateTimestamp(item.timeStamp)}</Text>
       </View>
       <View style={{ width: wp(15), height: hp(10) }} className='flex justify-center' >
         <View style={{ width: wp(9), height: hp(4.7), aspectRatio: 1 }} className={getStatusClass(item.status)}></View>
       </View>
     </View>
+    </TouchableOpacity>
   );
 
 

@@ -25,13 +25,23 @@ export default function NewScreen({ navigation, route }) {
      
     const [confirmedItems,fetchFinalDataFromFirestore,addFinalDataToFirestore]=usefirebaseOrderedList();
     
-   
+    const [submitStatus,setSubmitStatus]=useState(false);
+
     const stepperRef = useRef();
    
     useEffect(()=>{
       fetchDataFromFirestore()
       console.log("itemlist from firebase",items);
     },[route.params])
+
+    
+      
+                       
+       
+    useEffect(()=>{
+        items.map(i => addFinalDataToFirestore(i));
+    },[submitStatus])
+   
 
     const handleSubmit = React.useCallback(() => {
         console.log("checking items in submit",items)
@@ -47,8 +57,8 @@ export default function NewScreen({ navigation, route }) {
                 },
                 {
                     text: 'OK', onPress: () => {
-                        console.log("Finalized Items to add",items)
-                        items.map(i => addFinalDataToFirestore(i));
+                        setSubmitStatus(true);
+                        console.log("Finalized Items to add",items);                       
                         stepperRef.current.prevStep();
                     }
                 }
@@ -56,6 +66,7 @@ export default function NewScreen({ navigation, route }) {
             ],
 
         );
+        setSubmitStatus(false)
     }, [])
   
     const handlePrevious = React.useCallback(() => {

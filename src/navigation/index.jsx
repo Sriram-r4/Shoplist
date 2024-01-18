@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { widthPercentageToDP as wp ,heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -17,6 +17,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import ItemList from '../components/ItemList';
 import ItemProduct from '../components/ItemProduct';
 import UpdateScreen from '../screens/UpdateScreen';
+import ItemScreen from '../screens/ItemScreen';
 
 
 const Stack=createNativeStackNavigator();
@@ -54,6 +55,7 @@ export default function AppNavigation() {
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="Items" component={ItemStack} />
         <Stack.Screen name="Update" component={UpdateScreen}/>
+        <Stack.Screen name="Item" component={ItemScreen} />
        </Stack.Navigator>
       )
     }
@@ -76,14 +78,14 @@ export default function AppNavigation() {
   
               if (route.name === "Home") {
                 iconName = "home";
-              } else if (route.name === "Menu") {
-                iconName = "menu";
+              } else if (route.name === "Settings") {
+                iconName = "settings";
               } else if (route.name === "New") {
                 iconName = "add";
               } else if (route.name === "Account") {
                 iconName = "account-circle";
-              } else if (route.name === "Saved") {
-                iconName = "bookmark";
+              } else if (route.name === "Lists") {
+                iconName = "list-alt";
               }
 
   
@@ -111,8 +113,8 @@ export default function AppNavigation() {
           })}
           >
            
-            <Tab.Screen  name="Menu"  component={DrawerWindow}/>
-            <Tab.Screen name="Saved" component={SavedScreen}/>
+            <Tab.Screen  name="Settings"  component={DrawerWindow}/>
+            <Tab.Screen name="Lists" component={SavedScreen}/>
             <Tab.Screen name="Home" component={HomeScreen}/>
             <Tab.Screen name="New" component={NewScreen}/>
             <Tab.Screen name="Account" component={AccountScreen}/>
@@ -123,8 +125,12 @@ export default function AppNavigation() {
   function DrawerWindow(){
     return(
       <Drawer.Navigator screenOptions={{drawerStyle:{backgroundColor:"#E0F2F1"},headerTransparent:'true'}} >
-        <Drawer.Screen options={{drawerActiveBackgroundColor:'#B2DFDB',drawerActiveTintColor:'#00796B',headerTintColor:"#00695C"}} name="About" component={AboutScreen} />
-        <Drawer.Screen  options={{drawerActiveBackgroundColor:'#B2DFDB',drawerActiveTintColor:'#00796B',headerTintColor:"#00695C"}}name="Deleted" component={DeletedScreen} />
+        <Drawer.Screen options={{drawerActiveBackgroundColor:'#B2DFDB',drawerActiveTintColor:'#00796B',headerTintColor:"#00695C",drawerIcon:({ color, size }) => (
+            <MaterialIcons name="info-outline" size={20} color={"#00695c"} />
+          ),drawerInactiveTintColor:"#76a89f",drawerLabelStyle:{color:"#00695C"}}} name="About" component={AboutScreen} />
+        <Drawer.Screen  options={{drawerActiveBackgroundColor:'#B2DFDB',drawerActiveTintColor:'#00796B',headerTintColor:"#00695C",drawerIcon:({ color, size }) => (
+            <MaterialIcons name="delete" size={20} color={"#00695c"} />
+          ),drawerInactiveTintColor:"#76a89f",drawerLabelStyle:{color:"#00695C"}}} name="Deleted" component={DeletedScreen} />
       </Drawer.Navigator>
     )
   }
