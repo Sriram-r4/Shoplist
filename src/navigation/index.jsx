@@ -8,7 +8,7 @@ import { widthPercentageToDP as wp ,heightPercentageToDP as hp } from 'react-nat
 import WelcomeScreen from '../screens/WelcomeScreen';
 import HomeScreen from '../screens/HomeScreen';
 import MenuScreen from '../screens/MenuScreen';
-import SavedScreen from '../screens/SavedScreen';
+import ListsScreen from '../screens/ListsScreen';
 import AboutScreen from '../screens/AboutScreen';
 import DeletedScreen from '../screens/DeletedScreen';
 import NewScreen from '../screens/NewScreen';
@@ -18,7 +18,7 @@ import ItemList from '../components/ItemList';
 import ItemProduct from '../components/ItemProduct';
 import UpdateScreen from '../screens/UpdateScreen';
 import ItemScreen from '../screens/ItemScreen';
-
+import ListScreen from "../screens/ListScreen";
 
 const Stack=createNativeStackNavigator();
 const Tab =createBottomTabNavigator();
@@ -56,6 +56,7 @@ export default function AppNavigation() {
         <Stack.Screen name="Items" component={ItemStack} />
         <Stack.Screen name="Update" component={UpdateScreen}/>
         <Stack.Screen name="Item" component={ItemScreen} />
+        <Stack.Screen name="List" component={ListScreen}/>
        </Stack.Navigator>
       )
     }
@@ -114,7 +115,7 @@ export default function AppNavigation() {
           >
            
             <Tab.Screen  name="Settings"  component={DrawerWindow}/>
-            <Tab.Screen name="Lists" component={SavedScreen}/>
+            <Tab.Screen name="Lists" component={ListsScreen}/>
             <Tab.Screen name="Home" component={HomeScreen}/>
             <Tab.Screen name="New" component={NewScreen}/>
             <Tab.Screen name="Account" component={AccountScreen}/>

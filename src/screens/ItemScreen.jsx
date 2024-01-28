@@ -5,11 +5,14 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { Surface, Divider } from 'react-native-paper'
 import { MaterialIcons } from '@expo/vector-icons'
 import { getDateFromTimestamp } from '../firebase/dateConversion'
+import { usefirebaseOrderedList } from '../firebase/Ordered_list'
 
 export default function ItemScreen({navigation,route}) {
   const itemInfo=route.params.item
 
-  console.log("Individual item in Item Screen",itemInfo)
+  const [confirmedItems,fetchFinalDataFromFirestore,addFinalDataToFirestore,deleteFinalDocument,updateFinalDocument]=usefirebaseOrderedList(navigation)
+
+ 
   return (
     <SafeAreaView style={{
       width: wp(100),
@@ -41,12 +44,16 @@ export default function ItemScreen({navigation,route}) {
       </Surface>
       <View className="bg-teal-100/[0.6] self-center justify-between rounded-2xl my-5 px-2 py-4" style={{ height: hp(20), width: wp(90) }}>
         <View>
-          <TouchableOpacity className="flex-row mx-4 my-2 pb-2" onPress={()=>{console.log("Update Pressed")}}>
+          <TouchableOpacity className="flex-row mx-4 my-2 pb-2" onPress={()=>{
+            
+            navigation.navigate("Update",{item:itemInfo,previousScreen:true})
+        }}>
             <MaterialIcons name='update' color={"#00695c"} size={25} />
             <Text className="text-teal-700 font-semibold text-xl ml-2">Update</Text>
           </TouchableOpacity>
           <Divider />
-          <TouchableOpacity className="flex-row mx-4 my-2 pb-2" onPress={()=>{console.log("Delete Pressed")}}>
+          <TouchableOpacity className="flex-row mx-4 my-2 pb-2" onPress={()=>{deleteFinalDocument(itemInfo)
+        }}>
             <MaterialIcons name='delete' color={"#00695c"} size={25} />
             <Text className="text-teal-700 font-semibold text-xl ml-2">Delete</Text>
           </TouchableOpacity>

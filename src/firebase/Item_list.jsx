@@ -1,5 +1,5 @@
 import { Alert } from 'react-native'
-import { collection, addDoc, getDocs, query, where, limit, deleteDoc, updateDoc ,serverTimestamp} from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, where, limit, deleteDoc, updateDoc, serverTimestamp, doc } from 'firebase/firestore';
 import { FIREBASE_APP, FIREBASE_DB } from '../../firebaseConfig';
 import React, { useEffect, useState } from 'react'
 import { usefirebaseOrderedList } from './Ordered_list';
@@ -37,7 +37,7 @@ export function usefirebaseItemList(navigation) {
 
                     );
                 }
-               
+
             }
             else {
                 item.item_id = items.length + 1;
@@ -55,10 +55,10 @@ export function usefirebaseItemList(navigation) {
                 ...doc.data(),
             }));
             return Promise.all(newData);
-            
-        }).then((data)=>{
+
+        }).then((data) => {
             setItems(data);
-            // console.log("inside hook",data);
+           
         }).catch((error) => {
             console.error('Error  document:', error);
         });
@@ -67,8 +67,8 @@ export function usefirebaseItemList(navigation) {
 
         const collectionRef = collection(FIREBASE_DB, 'item-list');
         setDisabled(true);
-        
-        const dataWithTimeStamp={...data,timeStamp: serverTimestamp()}
+
+        const dataWithTimeStamp = { ...data, timeStamp: serverTimestamp() }
 
         addDoc(collectionRef, dataWithTimeStamp).then((docRef) => {
             console.log('Document written with ID: ', docRef.id);
@@ -109,7 +109,7 @@ export function usefirebaseItemList(navigation) {
                     [
                         {
                             text: 'OK', onPress: () => {
-                               
+
                             }
                         }
 
@@ -142,7 +142,7 @@ export function usefirebaseItemList(navigation) {
 
             })
             .then(() => {
-                
+
                 Alert.alert(
                     '\u{1F642} Updated Successfully',
                     `${item.itemName} is updated in your List`,
@@ -162,7 +162,27 @@ export function usefirebaseItemList(navigation) {
             });
 
     }
+    const DeleteCollection = () => {
+        const collectionRef = collection(FIREBASE_DB, 'item-list');
 
-    
-    return [items, disabled, handleItemData, updateDocument, deleteDocument, fetchDataFromFirestore];
+        // Fetch all documents from the collection
+        getDocs(collectionRef)
+          .then((querySnapshot) => {
+            // Delete each document
+            const deletePromises = querySnapshot.docs.map((doc) =>
+              deleteDoc(doc.ref)
+            );
+      
+            // Wait for all document deletions to complete
+            return Promise.all(deletePromises);
+          })
+          .then(() => {
+            console.log('All documents deleted successfully.');
+            setItems([]);
+          })
+          .catch((error) => {
+            console.error('Error deleting documents: ', error);
+          });
+    };
+    return [items, disabled, handleItemData, updateDocument, deleteDocument, fetchDataFromFirestore, DeleteCollection];
 }

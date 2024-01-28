@@ -1,17 +1,17 @@
 import { Alert } from 'react-native'
-import { collection, addDoc, getDocs, query, where, limit, deleteDoc, updateDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, where, limit, deleteDoc, updateDoc,serverTimestamp } from 'firebase/firestore';
 import { FIREBASE_DB } from '../../firebaseConfig';
 import React, { useState } from "react";
 
-export function usefirebaseOrderedList(navigation) {
-    const [confirmedItems, setConfirmedItems] = useState([])
+export function usefirebaseList(navigation) {
+    const [ListItemData, setListItemData] = useState({})
 
-    const addFinalDataToFirestore = (data) => {
+    const addListDataToFirestore = (data) => {
 
-        const collectionRef = collection(FIREBASE_DB, 'ordered-list');
+        const collectionRef = collection(FIREBASE_DB, 'list');
         
-
-        addDoc(collectionRef, data).then((docRef) => {
+        const dataWithTimeStamp = { ...data, timeStamp: serverTimestamp() }
+        addDoc(collectionRef, dataWithTimeStamp).then((docRef) => {
             console.log('Document written with ID: ', docRef.id);
            
 
@@ -24,16 +24,16 @@ export function usefirebaseOrderedList(navigation) {
     };
 
 
-    const fetchFinalDataFromFirestore = () => {
+    const fetchListDataFromFirestore = () => {
 
-        const collectionRef = collection(FIREBASE_DB, 'ordered-list');
+        const collectionRef = collection(FIREBASE_DB, 'list');
         getDocs(collectionRef).then((q) => {
 
             const newData = q.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
             }));
-            setConfirmedItems(newData);
+            setListItemData(newData);
             
             return Promise.resolve()
             
@@ -43,9 +43,9 @@ export function usefirebaseOrderedList(navigation) {
         });
     };
 
-    const deleteFinalDocument = (item) => {
+    const deleteListDocument = (item) => {
         const documentIdToDelete = item.item_id; // Replace with the actual ID of the document you want to delete
-        const collectionRef = collection(FIREBASE_DB, 'ordered-list');
+        const collectionRef = collection(FIREBASE_DB, 'list');
         const doc = query(collectionRef, where('item_id', '==', documentIdToDelete), limit(1))
         getDocs(doc)
 
@@ -79,15 +79,15 @@ export function usefirebaseOrderedList(navigation) {
                 );
                 console.log('Document deleted successfully');
 
-                fetchFinalDataFromFirestore();
+                fetchListDataFromFirestore();
             })
             .catch((error) => {
                 console.error('Error deleting document:', error);
             });
     };
-    const updateFinalDocument = (item) => {
+    const updateListDocument = (item) => {
         const documentIdToUpdate = item.item_id;
-        const collectionRef = collection(FIREBASE_DB, 'ordered-list');
+        const collectionRef = collection(FIREBASE_DB, 'list');
         const queryRef = query(collectionRef, where('item_id', '==', documentIdToUpdate), limit(1));
 
         getDocs(queryRef)
@@ -124,5 +124,5 @@ export function usefirebaseOrderedList(navigation) {
             });
 
     }
-    return [confirmedItems,fetchFinalDataFromFirestore,addFinalDataToFirestore,deleteFinalDocument,updateFinalDocument];
+    return [ListItemData,setListItemData,fetchListDataFromFirestore,addListDataToFirestore,deleteListDocument,updateListDocument];
 }

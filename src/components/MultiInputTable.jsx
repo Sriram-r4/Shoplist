@@ -16,7 +16,7 @@ export default function MultiInputTable({ navigation, itemData, itemname, handle
   const [amount, setAmount] = useState(1);
   const [status, setStatus] = useState(''); 
 
-  //selected item Bame from ItemProduct
+  //selected item Name from ItemProduct
   const { selectedItem } = itemname;
 
  

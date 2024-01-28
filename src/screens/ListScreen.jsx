@@ -1,82 +1,73 @@
-import { View, Text, Alert } from 'react-native'
+import { View, Text ,Alert} from 'react-native'
 import React, { useEffect, useState, useRef } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import Stepper from 'react-native-stepper-view';
+import ListInfo from '../components/ListInfo'
 import PreviewTable from '../components/PreviewTable'
-import MultiInputTable from '../components/MultiInputTable'
-import ItemCard from '../components/ItemCard'
 import CustomButton from '../components/CustomButton';
+import { usefirebaseList } from '../firebase/List';
 import Toast from 'react-native-toast-message';
-import { usefirebaseItemList } from '../firebase/Item_list';
-import { usefirebaseOrderedList} from '../firebase/Ordered_list';
 
+export default function ListScreen({route,navigation}) {
 
-export default function NewScreen({ navigation, route }) {
-    const selectedItem=route.params;
-    const [selectedItemName,setSelectedItemName] = useState(selectedItem);
-  
-    //dont remove updateDocument even if it is unused 
-    //if you try to remove then it shows item_id does not exists 
-    const [items,disabled,handleItemData,updateDocument,deleteDocument,fetchDataFromFirestore,DeleteCollection]= usefirebaseItemList(navigation);
-     
-    const [confirmedItems,fetchFinalDataFromFirestore,addFinalDataToFirestore]=usefirebaseOrderedList();
+    const [ListItemData,setListItemData,fetchListDataFromFirestore,addListDataToFirestore,deleteListDocument,updateListDocument]=usefirebaseList(navigation)
+    const ListItems=route.params.listItems
     
-    const [submitStatus,setSubmitStatus]=useState(false);
-
     const stepperRef = useRef();
-   
-    useEffect(()=>{
-      fetchDataFromFirestore()
-     
-    },[route.params])
+    let ListData={};
 
-    
-      
-                       
-       
-    useEffect(()=>{
-        items.map(i => addFinalDataToFirestore(i));
-    },[submitStatus])
    
-
+        
+   
     const handleSubmit = React.useCallback(() => {
-        console.log("checking items in submit",items)
+      
         Alert.alert(
-            '\u{1F914} Add Items?',
-            "Added Items Will be displayed in Home",
+            '\u{1F914} Add List?',
+            "Added Items Will be displayed in Lists",
             [
 
                 {
                     text: 'CANCEL', onPress: () => {
-                       
+
                     }
                 },
                 {
                     text: 'OK', onPress: () => {
-                        setSubmitStatus(true);                       
-                        stepperRef.current.prevStep();
-                        DeleteCollection();                        
+                        if(Object.keys(ListData)!=0){
+                        addListDataToFirestore(ListData)}
+                        navigation.navigate("Lists",{ListDetail:ListData})                      
                     }
                 }
 
             ],
 
         );
-        setSubmitStatus(false)
+      
     }, [])
-  
+
     const handlePrevious = React.useCallback(() => {
         console.log('navigate to:', prevStep);
     }, []);
 
     const handleNext = React.useCallback(() => {
         console.log('navigate to:', nextStep);
-       
+
     }, []);
 
-  
-   
+    const handleListDetails=({listname,listdes,liststatus})=>{
+        ListData={listname,listdes,liststatus,ListItems}    
+        Toast.show({
+            type: 'success',
+            text1: "List Information added successfully",
+            text2: "Press Next to continue",
+            visibilityTime: 5000,
+            text1Style: { color: "#00895c", fontSize: 16 },
+            text2Style: { color: "#00695c", fontSize: 14 },
+            position: "top",
+
+        });  
+    }
 
     const ProgressStepStyles = {
         progressBarBgColor: '#76a89f',
@@ -92,27 +83,11 @@ export default function NewScreen({ navigation, route }) {
         activeStepNumColor: "#fff"
     }
     const label = ["Next", "Previous", "Submit"]
-
-
-    const showCardMessage = (item) => {
-        Toast.show({
-            type: 'success',
-            text1: item.itemName,
-            text2: item.itemCategory,
-            visibilityTime: 1300,
-            text1Style: { color: "#00895c", fontSize: 16 },
-            text2Style: { color: "#00695c", fontSize: 14 },
-            position: "top",
-
-        });
-    }
-
     return (
         <SafeAreaView style={{
             width: wp(100),
-            height: hp(85),
-        }} className="bg-teal-50/[0.8] ">
-
+            height: hp(93),
+        }} className="bg-teal-50/[0.8]  ">
             <Stepper
                 ref={stepperRef}
                 onSubmit={handleSubmit}
@@ -123,13 +98,12 @@ export default function NewScreen({ navigation, route }) {
                 ButtonComponent={(props) => <CustomButton {...props} />}
             >
 
-                <Stepper.Step label="Item"
+                <Stepper.Step label="List"
                     {...ProgressStepStyles}>
                     <View style={{ width: wp(100), height: hp(61.7) }} className='flex items-center p-1 justify-center'>
                         <View style={{ width: wp(95), height: hp(59) }} className='px-3  py-2 m-1'>
-                            <Text className="text-teal-700 text-xl text-center font-medium">Enter Table Details</Text>
-                            <MultiInputTable  navigation={navigation} itemname={selectedItem !== undefined ? selectedItem : {}} handleItemData={handleItemData} disabled={disabled} />
-                            <ItemCard items={items} navigation={navigation} showCardMessage={showCardMessage} deleteDocument={deleteDocument} />
+                            
+                            <ListInfo   handleListDetails={handleListDetails}/>
                             <Toast style={{ zIndex: 1000 }} />
                         </View>
                     </View>
@@ -140,7 +114,7 @@ export default function NewScreen({ navigation, route }) {
                         <View style={{ width: wp(95), height: hp(55) }} className='pb-2 pt-0 px-1 m-1'>
                             <Text className="text-teal-700 text-xl text-center font-medium">Check Table Data</Text>
 
-                            <PreviewTable tableData={items} />
+                            <PreviewTable tableData={ListItems} />
 
                         </View>
                     </View>
@@ -149,5 +123,4 @@ export default function NewScreen({ navigation, route }) {
 
         </SafeAreaView>
     )
-
 }
