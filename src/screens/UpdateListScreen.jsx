@@ -1,18 +1,36 @@
 import { View, Text,Alert} from 'react-native';
-import { Button } from 'react-native-paper';
 import React, { useState} from 'react';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { TextInput, RadioButton, Surface } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
+import { TextInput, RadioButton, Surface,Button } from 'react-native-paper';
+import { usefirebaseList } from '../firebase/List';
 
-export default function ListInfo({handleListDetails}) {
-    const [liststatus, setListStatus] = useState(null);
-    const [listname, setListname] = useState('');
-    const [listdes, setListDes] = useState('');
+export default function UpdateListScreen({ route, navigation }) {
+    const UpdateList = route.params.updateList
+   
+    const [ListItemData, setListItemData, fetchListDataFromFirestore, addListDataToFirestore, deleteListDocument, updateListDocument] = usefirebaseList(navigation)
+
+    const [liststatus, setListStatus] = useState(UpdateList.liststatus);
+    const [listname, setListname] = useState(UpdateList.listname);
+    const [listdes, setListDes] = useState(UpdateList.listdes);
+
+    const handleListUpdate=({listdes,listname,liststatus})=>{
+        const item={...UpdateList,listdes,listname,liststatus}
+        updateListDocument(item)
+    }
 
 
+   
     return (
-        <View style={{ width: wp(93), height: hp(57) }} className='p-2 m-2 self-center'>
-            <Text className="text-teal-700 text-xl text-center font-medium">Basic List Information</Text>
+        <SafeAreaView style={{
+            width: wp(100),
+            height: hp(93),
+        }} className="bg-teal-50/[0.8]  ">
+            <View style={{ height: hp(6), width: wp(97), alignSelf: "center" }} className=" justify-center  bg-emerald-100 rounded-lg ">
+                <Text className="text-teal-700 text-xl text-center font-bold">Update {UpdateList.listname}</Text>
+            </View>
+            <View style={{ width: wp(96), height: hp(70) }} className='p-2 m-2 self-center '>
+            
             <Surface style={{ width: wp(95) }} className="self-center px-3 py-1 my-4 mx-2 bg-gray-50  rounded-lg">
                 <View className=" flex justify-between">
                     <TextInput style={{ height: hp(6) }} className="my-4"
@@ -48,24 +66,30 @@ export default function ListInfo({handleListDetails}) {
                 title="Add Item" labelStyle={{ color: "#fff" }}
                 className="bg-teal-600 mx-2 "
                 onPress={() => {
-                    if (listdes!=""&&listname!=""&&liststatus!=null) {
-                       handleListDetails({listdes,listname,liststatus})
-                        // setListname("")
-                        // setListDes("")
-                        // setListStatus(null)
+                    if (listdes==UpdateList.listdes&&listname==UpdateList.listname&&liststatus==UpdateList.liststatus) {
+                    //    handleListDetails({listdes,listname,liststatus})
+                    //     // setListname("")
+                    //     // setListDes("")
+                    //     // setListStatus(null)
+                    Alert.alert(
+                        'Same Details?',
+                        "Are you sure want to make no changes",
+                        [
+                            {text:"OK",onPress:()=>{}},
+                            {text:"CANCEL",onPress:()=>{}}
+                        ]
+                    )
                     }
                     else {
-                        Alert.alert(
-                            '\u{1F61E} Missing Details!',
-                            'Fill all the details of the List',
-                            [
-                                { text: 'OK', onPress: () => { { } } },
-                            ],
-
-                        );
+                        console.log({listdes,listname,liststatus}) 
+                        handleListUpdate({listdes,listname,liststatus})
+                        
                     }
-                }}>Add List Details</Button>
+                }}>Update List Details</Button>
         </View>
 
+
+
+        </SafeAreaView>
     )
 }

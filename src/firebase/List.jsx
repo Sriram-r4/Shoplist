@@ -1,22 +1,20 @@
 import { Alert } from 'react-native'
-import { collection, addDoc, getDocs, query, where, limit, deleteDoc, updateDoc,serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, where, limit, deleteDoc, doc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { FIREBASE_DB } from '../../firebaseConfig';
 import React, { useState } from "react";
 
 export function usefirebaseList(navigation) {
     const [ListItemData, setListItemData] = useState({})
 
+
     const addListDataToFirestore = (data) => {
 
         const collectionRef = collection(FIREBASE_DB, 'list');
+        const dataWithTime = { ...data, timeStamp: serverTimestamp()}
         
-        const dataWithTimeStamp = { ...data, timeStamp: serverTimestamp() }
-        addDoc(collectionRef, dataWithTimeStamp).then((docRef) => {
+        addDoc(collectionRef, dataWithTime).then((docRef) => {           
             console.log('Document written with ID: ', docRef.id);
-           
-
         }).catch((error) => {
-           
             console.error('Error adding document: ', error);
         })
 
@@ -34,50 +32,37 @@ export function usefirebaseList(navigation) {
                 ...doc.data(),
             }));
             setListItemData(newData);
-            
+
             return Promise.resolve()
-            
-           
+
+
         }).catch((error) => {
             console.error('Error  document:', error);
         });
     };
 
     const deleteListDocument = (item) => {
-        const documentIdToDelete = item.item_id; // Replace with the actual ID of the document you want to delete
+        const documentIdToDelete = item.id;
         const collectionRef = collection(FIREBASE_DB, 'list');
-        const doc = query(collectionRef, where('item_id', '==', documentIdToDelete), limit(1))
-        getDocs(doc)
+        const docRef = doc(collectionRef, documentIdToDelete);
 
-            .then((querySnapshot) => {
-                // Step 2: Check if there is a matching document
-                const deletePromises = [];
-                if (!querySnapshot.empty) {
-                    querySnapshot.forEach((doc) => {
-                        const docRef = doc.ref;
-                        deletePromises.push(deleteDoc(docRef));
-                    });
-
-                    // Wait for all delete promises to complete
-                    return Promise.all(deletePromises);
-                }
-            })
+        deleteDoc(docRef)
             .then(() => {
 
                 Alert.alert(
                     '\u{1F642} Deleted Successfully',
-                    `${item.itemName} is deleted from your List`,
+                    `${item.listname} is deleted from your List`,
                     [
                         {
                             text: 'OK', onPress: () => {
-                               navigation.navigate('HomeTab')
+                                navigation.navigate('HomeTab')
                             }
                         }
 
                     ],
 
                 );
-                console.log('Document deleted successfully');
+                console.log('List deleted successfully');
 
                 fetchListDataFromFirestore();
             })
@@ -86,14 +71,20 @@ export function usefirebaseList(navigation) {
             });
     };
     const updateListDocument = (item) => {
-        const documentIdToUpdate = item.item_id;
+       
+        const documentIdToUpdate = item.id;
+        console.log(item)
+        console.log(documentIdToUpdate)
         const collectionRef = collection(FIREBASE_DB, 'list');
-        const queryRef = query(collectionRef, where('item_id', '==', documentIdToUpdate), limit(1));
+        const queryRef = query(collectionRef,documentIdToUpdate);
 
         getDocs(queryRef)
             .then((querySnapshot) => {
+                
                 const updatePromises = [];
+                // console.log(querySnapshot)
                 if (!querySnapshot.empty) {
+                    console.log("querySnapshot)",querySnapshot)
                     querySnapshot.forEach((doc) => {
                         const docRef = doc.ref;
                         updatePromises.push(updateDoc(docRef, item));
@@ -106,13 +97,13 @@ export function usefirebaseList(navigation) {
                 
                 Alert.alert(
                     '\u{1F642} Updated Successfully',
-                    `${item.itemName} is updated in your List`,
+                    `${item.listname} is updated in your List`,
                     [
                         {
                             text: 'OK',
                             onPress: () => {
                              
-                              navigation.navigate('HomeTab')
+                            //   navigation.navigate('HomeTab')
                             }
                         }
                     ]
@@ -124,5 +115,7 @@ export function usefirebaseList(navigation) {
             });
 
     }
-    return [ListItemData,setListItemData,fetchListDataFromFirestore,addListDataToFirestore,deleteListDocument,updateListDocument];
+      
+      
+    return [ListItemData, setListItemData, fetchListDataFromFirestore, addListDataToFirestore, deleteListDocument, updateListDocument];
 }

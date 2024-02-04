@@ -19,6 +19,8 @@ import ItemProduct from '../components/ItemProduct';
 import UpdateScreen from '../screens/UpdateScreen';
 import ItemScreen from '../screens/ItemScreen';
 import ListScreen from "../screens/ListScreen";
+import ListCarousel from '../screens/ListCarousel';
+import UpdateListScreen from '../screens/UpdateListScreen';
 
 const Stack=createNativeStackNavigator();
 const Tab =createBottomTabNavigator();
@@ -57,6 +59,8 @@ export default function AppNavigation() {
         <Stack.Screen name="Update" component={UpdateScreen}/>
         <Stack.Screen name="Item" component={ItemScreen} />
         <Stack.Screen name="List" component={ListScreen}/>
+        <Stack.Screen name="ListCarousel" component={ListCarousel}/>
+        <Stack.Screen name="UpdateListScreen" component={UpdateListScreen}/>
        </Stack.Navigator>
       )
     }
