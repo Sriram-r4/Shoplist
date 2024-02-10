@@ -22,7 +22,7 @@ export default function NewScreen({ navigation, route }) {
      
     const [confirmedItems,fetchFinalDataFromFirestore,addFinalDataToFirestore]=usefirebaseOrderedList();
     
-    const [submitStatus,setSubmitStatus]=useState(false);
+    
 
     const stepperRef = useRef();
    
@@ -31,17 +31,15 @@ export default function NewScreen({ navigation, route }) {
      
     },[route.params])
 
-    
-      
-                       
-       
     useEffect(()=>{
-        items.map(i => addFinalDataToFirestore(i));
-    },[submitStatus])
-   
+        fetchFinalDataFromFirestore()
+    },[route.params])                    
+       
+    
 
-    const handleSubmit = React.useCallback(() => {
-        console.log("checking items in submit",items)
+    const handleSubmit =() => {
+        // console.log("checking items in submit",items)
+    
         Alert.alert(
             '\u{1F914} Add Items?',
             "Added Items Will be displayed in Home",
@@ -53,8 +51,8 @@ export default function NewScreen({ navigation, route }) {
                     }
                 },
                 {
-                    text: 'OK', onPress: () => {
-                        setSubmitStatus(true);                       
+                    text: 'OK', onPress: () => {                      
+                        items.map(i => addFinalDataToFirestore(i));                       
                         stepperRef.current.prevStep();
                         DeleteCollection();                        
                     }
@@ -63,8 +61,8 @@ export default function NewScreen({ navigation, route }) {
             ],
 
         );
-        setSubmitStatus(false)
-    }, [])
+        
+    }
   
     const handlePrevious = React.useCallback(() => {
         console.log('navigate to:', prevStep);
@@ -115,7 +113,7 @@ export default function NewScreen({ navigation, route }) {
 
             <Stepper
                 ref={stepperRef}
-                onSubmit={handleSubmit}
+                onSubmit={() => handleSubmit()}
                 onPrevStep={() => handlePrevious}
                 onNextStep={() => handleNext}
                 numberOfSteps={2}

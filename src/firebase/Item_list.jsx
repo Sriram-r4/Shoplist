@@ -9,10 +9,15 @@ export function usefirebaseItemList(navigation) {
     const [item_id, setItem_id] = useState(1);
     const [disabled, setDisabled] = useState(false);//Add Item button state(disabled or not)
 
+    const [confirmedItems, fetchFinalDataFromFirestore, addFinalDataToFirestore, deleteFinalDocument, updateFinalDocument] = usefirebaseOrderedList();
 
     useEffect(() => {
         fetchDataFromFirestore();
     }, [item_id]);
+
+    useEffect(() => {
+        fetchFinalDataFromFirestore();
+    }, []);
 
 
 
@@ -23,8 +28,20 @@ export function usefirebaseItemList(navigation) {
                 let checkItem = items.filter(i => i.itemName == item.itemName);
 
                 if (checkItem.length == 0) {
-                    item.item_id = items.length + 1;
-                    addDataToFirestore(item)
+                    const addedItems = confirmedItems.map(i => i.itemName)
+
+                    if (!addedItems.includes(item.itemName)) {
+                        item.item_id = items.length + 1;
+                        addDataToFirestore(item);
+                    }
+                    else {
+                        Alert.alert(`\u{1F61E} ${item.itemName} is already present`,
+                            `Remove ${item.itemName} in Your Items to add or change`,
+                            [
+                                { text: "OK", onPress: () => { } }
+                            ]
+                        )
+                    }
 
                 }
                 else {
@@ -40,8 +57,19 @@ export function usefirebaseItemList(navigation) {
 
             }
             else {
-                item.item_id = items.length + 1;
-                addDataToFirestore(item);
+                const addedItems = confirmedItems.map(i => i.itemName)
+                if (!addedItems.includes(item.itemName)) {
+                    item.item_id = items.length + 1;
+                    addDataToFirestore(item);
+                }
+                else {
+                    Alert.alert(`\u{1F61E} ${item.itemName} is already present`,
+                        `Remove ${item.itemName} in Your Items to add or change`,
+                        [
+                            { text: "OK", onPress: () => { } }
+                        ]
+                    )
+                }
             }
         }
     };
@@ -58,7 +86,7 @@ export function usefirebaseItemList(navigation) {
 
         }).then((data) => {
             setItems(data);
-           
+
         }).catch((error) => {
             console.error('Error  document:', error);
         });
@@ -167,22 +195,22 @@ export function usefirebaseItemList(navigation) {
 
         // Fetch all documents from the collection
         getDocs(collectionRef)
-          .then((querySnapshot) => {
-            // Delete each document
-            const deletePromises = querySnapshot.docs.map((doc) =>
-              deleteDoc(doc.ref)
-            );
-      
-            // Wait for all document deletions to complete
-            return Promise.all(deletePromises);
-          })
-          .then(() => {
-            console.log('All documents deleted successfully.');
-            setItems([]);
-          })
-          .catch((error) => {
-            console.error('Error deleting documents: ', error);
-          });
+            .then((querySnapshot) => {
+                // Delete each document
+                const deletePromises = querySnapshot.docs.map((doc) =>
+                    deleteDoc(doc.ref)
+                );
+
+                // Wait for all document deletions to complete
+                return Promise.all(deletePromises);
+            })
+            .then(() => {
+                console.log('All documents deleted successfully.');
+                setItems([]);
+            })
+            .catch((error) => {
+                console.error('Error deleting documents: ', error);
+            });
     };
     return [items, disabled, handleItemData, updateDocument, deleteDocument, fetchDataFromFirestore, DeleteCollection];
 }

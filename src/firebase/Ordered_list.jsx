@@ -1,28 +1,46 @@
 import { Alert } from 'react-native'
-import { collection, addDoc, getDocs, query, where, limit, deleteDoc, updateDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, where, limit, deleteDoc, updateDoc,orderBy,serverTimestamp } from 'firebase/firestore';
 import { FIREBASE_DB } from '../../firebaseConfig';
 import React, { useState } from "react";
 
 export function usefirebaseOrderedList(navigation) {
     const [confirmedItems, setConfirmedItems] = useState([])
 
-    const addFinalDataToFirestore = (data) => {
-
+    const generateNextItemId = async() => {
         const collectionRef = collection(FIREBASE_DB, 'ordered-list');
-        
-
-        addDoc(collectionRef, data).then((docRef) => {
-            console.log('Document written with ID: ', docRef.id);
-           
-
-        }).catch((error) => {
-           
-            console.error('Error adding document: ', error);
-        })
-
-
+    
+        return getDocs(query(collectionRef, orderBy('item_id', 'desc'), limit(1)))
+            .then((querySnapshot) => {
+                if (!querySnapshot.empty) {
+                    const lastItemId = querySnapshot.docs[0].data().item_id;
+                    const nextItemId = lastItemId + 1;
+                    return nextItemId;
+                } else {
+                    // If no documents found, start with 1
+                    return 1;
+                }
+            })
+            .catch((error) => {
+                console.error('Error generating next list_id: ', error);
+                throw error; // rethrow the error for further handling
+            });
     };
-
+    
+    const addFinalDataToFirestore = (data) => {
+        generateNextItemId()
+            .then((nextItemId) => {
+                const collectionRef = collection(FIREBASE_DB, 'ordered-list');
+                const dataWithTimeAndId = { ...data, timeStamp: serverTimestamp(), item_id: nextItemId };
+    
+                return addDoc(collectionRef, dataWithTimeAndId);
+            })
+            .then((docRef) => {
+                console.log('Document written with ID: ', docRef.id);
+            })
+            .catch((error) => {
+                console.error('Error adding document: ', error);
+            });
+    };
 
     const fetchFinalDataFromFirestore = () => {
 
@@ -96,7 +114,7 @@ export function usefirebaseOrderedList(navigation) {
                 if (!querySnapshot.empty) {
                     querySnapshot.forEach((doc) => {
                         const docRef = doc.ref;
-                        updatePromises.push(updateDoc(docRef, item));
+                        updatePromises.push(updateDoc(docRef, {...item,updateTimeStamp:serverTimestamp()}));
                     });
                     return Promise.all(updatePromises);
                 }

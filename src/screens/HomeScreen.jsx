@@ -9,13 +9,14 @@ import { useIsFocused } from '@react-navigation/native'
 import { usefirebaseOrderedList } from '../firebase/Ordered_list';
 import { getDayFromDateTimestamp } from '../firebase/dateConversion'
 import { MaterialIcons } from '@expo/vector-icons'
+import LottieView from "lottie-react-native"
 
 export default function HomeScreen({ navigation,route }) {
   const [currentItems, setCurrentItems] = useState([])
 
   const isFocusedScreen = useIsFocused();
 
-  const [confirmedItems, fetchFinalDataFromFirestore, addFinalDataToFirestore, deleteFinalDocument, updateFinalDocument] = usefirebaseOrderedList()
+  const [confirmedItems, fetchFinalDataFromFirestore, addFinalDataToFirestore, deleteFinalDocument, updateFinalDocument] = usefirebaseOrderedList();
   const [selectedItems, setSelectedItems] = useState([]);
   const [selected, setSelected] = useState(false);
 
@@ -149,15 +150,18 @@ export default function HomeScreen({ navigation,route }) {
         : <View></View>}
       <View style={{ width: wp(95), height: hp(60), alignSelf: 'center' }} className=' m-2 rounded-2xl'>
         <View className="flex-row justify-between">
+          <Pressable onPress={()=>{navigation.navigate("ItemsScreen")}}>
           <Text style={{ height: hp(4) }} className='text-teal-900 font-medium  mx-2 mb-1 text-xl'>Your Items</Text>
+          </Pressable>
           {selectedItems.length !== 0 &&
             <Pressable style={{ backgroundColor: "#00695C", borderRadius: 10, width: wp(20), height: hp(4), marginRight: 10 }}
-              onPress={() => { console.log("confirmed Items:\t", selectedItems) 
+              onPress={() => { 
               navigation.navigate("List",{listItems:selectedItems})
             }}>
               <Text className="text-white text-center  text-lg">Confirm</Text>
             </Pressable>}
         </View>
+        {confirmedItems.length>0?
         <View style={currentItems.length === 0 ? ({ height: hp(54), width: wp(95) }) : ({ height: hp(28), width: wp(95) })} >
           <FlatList style={{ width: wp(93), alignSelf: 'center', }}
             data={confirmedItems}
@@ -166,6 +170,17 @@ export default function HomeScreen({ navigation,route }) {
             showsVerticalScrollIndicator={false}
           />
         </View>
+        :
+      
+        <View className="flex-1 " >
+          <LottieView source={require("../../assets/EmptyListData.json")} className="self-center" style={{height:hp(40),width:wp(95)}} autoSize   autoPlay />
+          <View className="self-center items-center justify-center" style={{height:hp(10),width:wp(95)}}>
+          <Text className="text-teal-700 font-medium text-2xl">No Items!</Text>
+          <Text  className="text-teal-700 font-normal text-lg">Add Items to view here </Text>
+          </View>
+        </View>
+      
+        }
       </View>
     </SafeAreaView>
 

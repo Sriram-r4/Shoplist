@@ -1,5 +1,5 @@
 import { Alert } from 'react-native'
-import { collection, addDoc, getDocs, query, where, limit, deleteDoc, doc, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, where, limit, deleteDoc, doc, updateDoc, serverTimestamp ,orderBy} from 'firebase/firestore';
 import { FIREBASE_DB } from '../../firebaseConfig';
 import React, { useState } from "react";
 
@@ -7,19 +7,42 @@ export function usefirebaseList(navigation) {
     const [ListItemData, setListItemData] = useState({})
 
 
-    const addListDataToFirestore = (data) => {
-
+    const generateNextListId = () => {
         const collectionRef = collection(FIREBASE_DB, 'list');
-        const dataWithTime = { ...data, timeStamp: serverTimestamp()}
-        
-        addDoc(collectionRef, dataWithTime).then((docRef) => {           
-            console.log('Document written with ID: ', docRef.id);
-        }).catch((error) => {
-            console.error('Error adding document: ', error);
-        })
-
-
+    
+        return getDocs(query(collectionRef, orderBy('list_id', 'desc'), limit(1)))
+            .then((querySnapshot) => {
+                if (!querySnapshot.empty) {
+                    const lastListId = querySnapshot.docs[0].data().list_id;
+                    const nextListId = lastListId + 1;
+                    return nextListId;
+                } else {
+                    // If no documents found, start with 1
+                    return 1;
+                }
+            })
+            .catch((error) => {
+                console.error('Error generating next list_id: ', error);
+                
+            });
     };
+    
+    const addListDataToFirestore = (data) => {
+        generateNextListId()
+            .then((nextListId) => {
+                const collectionRef = collection(FIREBASE_DB, 'list');
+                const dataWithTimeAndId = { ...data, timeStamp: serverTimestamp(), list_id: nextListId };
+    
+                return addDoc(collectionRef, dataWithTimeAndId);
+            })
+            .then((docRef) => {
+                console.log('Document written with ID: ', docRef.id);
+            })
+            .catch((error) => {
+                console.error('Error adding document: ', error);
+            });
+    };
+    
 
 
     const fetchListDataFromFirestore = () => {
@@ -72,22 +95,19 @@ export function usefirebaseList(navigation) {
     };
     const updateListDocument = (item) => {
        
-        const documentIdToUpdate = item.id;
-        console.log(item)
-        console.log(documentIdToUpdate)
+        const documentIdToUpdate = item.list_id;
         const collectionRef = collection(FIREBASE_DB, 'list');
-        const queryRef = query(collectionRef,documentIdToUpdate);
+        const queryRef = query(collectionRef,where("list_id","==",documentIdToUpdate),limit(1));
+        const updateDate={...item,UpdatetimeStamp:serverTimestamp()}
 
         getDocs(queryRef)
             .then((querySnapshot) => {
                 
                 const updatePromises = [];
-                // console.log(querySnapshot)
                 if (!querySnapshot.empty) {
-                    console.log("querySnapshot)",querySnapshot)
                     querySnapshot.forEach((doc) => {
                         const docRef = doc.ref;
-                        updatePromises.push(updateDoc(docRef, item));
+                        updatePromises.push(updateDoc(docRef,updateDate));
                     });
                     return Promise.all(updatePromises);
                 }
@@ -103,7 +123,7 @@ export function usefirebaseList(navigation) {
                             text: 'OK',
                             onPress: () => {
                              
-                            //   navigation.navigate('HomeTab')
+                              navigation.navigate('HomeTab')
                             }
                         }
                     ]

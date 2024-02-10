@@ -4,11 +4,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import LottieView from 'lottie-react-native';
 
-export default function DeletedScreen() {
+export default function ItemsScreen() {
   return (
     <SafeAreaView style={{
       width: wp(100),
-      height: hp(85),
+      height: hp(93),
     }} className="bg-teal-50/[0.8]  ">
       <View style={{ flex: 1, justifyContent: "center", alignSelf: "center" }}>
 

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Shoplist",
-    "slug": "Shoplist",
+    "slug": "shoplist",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -19,12 +19,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage":"./assets/AdaptiveIcon.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6b83a524-c060-4c02-8a69-ddfb75d446ef"
+      }
+    },
+    "owner": "sriram-4"
   }
 }
