@@ -1,7 +1,7 @@
 import { View, SectionList, Text, TouchableOpacity, ActivityIndicator, Alert, ScrollView } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Searchbar, Button } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
 import Vegetables from '../constants/CategoryData/Vegetables.json';
@@ -28,7 +28,7 @@ import LottieView from 'lottie-react-native';
 
 
 export default function ItemProduct({ route, navigation }) {
-  // console.log(route.params.category);
+  
 
   const selectedCategory = route.params.category;
   const [searchQuery, setSearchQuery] = useState('');
@@ -135,7 +135,7 @@ export default function ItemProduct({ route, navigation }) {
     // Toggle selection for the clicked item
 
     setSelectedItem(item);
-    console.log(item);
+
     Toast.show({
       type: 'success',
       text1: `\u{263A} ${item.english} selected!`,
@@ -177,6 +177,7 @@ export default function ItemProduct({ route, navigation }) {
             <SectionList
               style={{ margin: 3, paddingHorizontal: 5 }}
               sections={sections}
+              showsVerticalScrollIndicator={false}
               keyExtractor={(item, index) => item.id.toString()}
               renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => handleItemPress(item)} className="active:bg-teal-100 rounded-2xl "  >
@@ -192,7 +193,7 @@ export default function ItemProduct({ route, navigation }) {
                       </View>
                     </View>
                     :
-                    <View  className="px-3  py-1 m-1 flex flex-row justify-between">
+                    <View className="px-3  py-1 m-1 flex flex-row justify-between">
                       <View className="flex flex-col">
                         <Text className="text-teal-800 text-base">{item.english}</Text>
                         <Text className="text-teal-400 font-normal text-xs ">{item.tamil}</Text>
@@ -216,9 +217,9 @@ export default function ItemProduct({ route, navigation }) {
                     Jdata.filter(i => i.english.match(searchQuery.trim()))
                       .map((item, index) => (
 
-                        <TouchableOpacity onPress={() => { handleItemPress(item) }}>
+                        <TouchableOpacity  key={index} onPress={() => { handleItemPress(item) }}>
                           {selectedItem.english === item.english ?
-                            <View key={index} className="px-3 rounded-2xl bg-teal-100/[0.6] py-1 m-1 flex flex-row justify-between">
+                            <View className="px-3 rounded-2xl bg-teal-100/[0.6] py-1 m-1 flex flex-row justify-between">
                               <View className="flex flex-col">
                                 <Text className="text-teal-800 text-base">{item.english}</Text>
                                 <Text className="text-teal-400 font-normal text-xs ">{item.tamil}</Text>
@@ -228,7 +229,7 @@ export default function ItemProduct({ route, navigation }) {
                               </View>
                             </View>
                             :
-                            <View className="px-3  py-1 m-1 flex flex-row justify-between" key={index}>
+                            <View className="px-3  py-1 m-1 flex flex-row justify-between" >
                               <View className="flex flex-col">
                                 <Text className="text-teal-800 text-base">{item.english}</Text>
                                 <Text className="text-teal-400 font-normal text-xs ">{item.tamil}</Text>
@@ -241,20 +242,26 @@ export default function ItemProduct({ route, navigation }) {
                       )
                       )
                     :
-                    <View style={{ height: hp(10), width: wp(95) }} className="justify-between ">
-                      <Text className="text-teal-700 text-xl">No Items Found</Text>
+                    <View className="flex-1 " >
+                      <LottieView source={require("../../assets/SearchNotFound.json")} className="self-center" style={{ height: hp(40), width: wp(95) }} autoSize autoPlay />
+                      <View className="self-center items-center justify-center" style={{ height: hp(10), width: wp(95) }}>
+                        <Text className="text-teal-700 font-medium text-2xl">"{searchQuery.trim()}" Not Found!</Text>
+                      </View>
                     </View>
                   )
                   :
-                  <View style={{ height: hp(10), width: wp(95) }}>
-                    <Text>No Items Found</Text>
+                  <View className="flex-1 " >
+                    <LottieView source={require("../../assets/SearchNotFound.json")} className="self-center" style={{ height: hp(40), width: wp(95) }} autoSize autoPlay />
+                    <View className="self-center items-center justify-center" style={{ height: hp(10), width: wp(95) }}>
+                      <Text className="text-teal-700 font-medium text-2xl">"{searchQuery.trim()}" Not Found!</Text>
+                    </View>
                   </View>}
               </ScrollView>
             </View>
           )
         }
       </View>
-      <View className="self-center ">
+      <View className="self-center">
         <Button style={{ width: wp(90), height: hp(6) }} title="Next" labelStyle={{ color: "#fff", fontSize: hp(2.5) }} className="bg-teal-600 p-1  mx-2 my-3 "
           icon="check-bold"
           onPress={() => {

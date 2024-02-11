@@ -41,7 +41,6 @@ function ItemList({navigation}) {
   );
   
   const handleItemPress=(item)=>{
-    console.log("category:",item);
     setSelectedCategory(item.title);
     navigation.navigate('ItemProduct',{category:item.title});
   }

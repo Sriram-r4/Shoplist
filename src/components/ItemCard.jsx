@@ -32,7 +32,7 @@ export default function ItemCard({ items, showCardMessage, deleteDocument,  navi
   return (
 
     <ScrollView style={{ height: hp(33), width: wp(95) }} showsVerticalScrollIndicator={false} className=" m-1.5 self-center">
-      <FlatList data={items.sort((a, b) => a.item_id - b.item_id)}
+      <FlatList data={items.sort((a, b) => b.item_id - a.item_id)}
         renderItem={({ item, num }) => (
           <TouchableOpacity onPress={() => showCardMessage(item)} onLongPress={() => handleItemLongPress(item)}>
             <View style={{ width: wp(30), height: hp(15), alignSelf: 'center' }} key={num + 1} className='bg-teal-200/[0.2] m-1  rounded-2xl'>

@@ -7,7 +7,7 @@ export function usefirebaseList(navigation) {
     const [ListItemData, setListItemData] = useState({})
 
 
-    const generateNextListId = () => {
+    const generateNextListId = async() => {
         const collectionRef = collection(FIREBASE_DB, 'list');
     
         return getDocs(query(collectionRef, orderBy('list_id', 'desc'), limit(1)))

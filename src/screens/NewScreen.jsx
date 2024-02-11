@@ -1,5 +1,5 @@
 import { View, Text, Alert } from 'react-native'
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import Stepper from 'react-native-stepper-view';
@@ -9,73 +9,77 @@ import ItemCard from '../components/ItemCard'
 import CustomButton from '../components/CustomButton';
 import Toast from 'react-native-toast-message';
 import { usefirebaseItemList } from '../firebase/Item_list';
-import { usefirebaseOrderedList} from '../firebase/Ordered_list';
+import { usefirebaseOrderedList } from '../firebase/Ordered_list';
 
 
 export default function NewScreen({ navigation, route }) {
-    const selectedItem=route.params;
-    const [selectedItemName,setSelectedItemName] = useState(selectedItem);
-  
+    const selectedItem = route.params;
+    const [selectedItemName, setSelectedItemName] = useState(selectedItem);
+
     //dont remove updateDocument even if it is unused 
     //if you try to remove then it shows item_id does not exists 
-    const [items,disabled,handleItemData,updateDocument,deleteDocument,fetchDataFromFirestore,DeleteCollection]= usefirebaseItemList(navigation);
-     
-    const [confirmedItems,fetchFinalDataFromFirestore,addFinalDataToFirestore]=usefirebaseOrderedList();
-    
-    
+    const [items, disabled, handleItemData, updateDocument, deleteDocument, fetchDataFromFirestore, DeleteCollection] = usefirebaseItemList(navigation);
+
+    const [confirmedItems, fetchFinalDataFromFirestore, addFinalDataToFirestore] = usefirebaseOrderedList();
+
+
 
     const stepperRef = useRef();
-   
-    useEffect(()=>{
-      fetchDataFromFirestore()
-     
-    },[route.params])
 
-    useEffect(()=>{
+    useEffect(() => {
+        fetchDataFromFirestore()
+
+    }, [route.params])
+
+    useEffect(() => {
         fetchFinalDataFromFirestore()
-    },[route.params])                    
-       
-    
+    }, [route.params])
 
-    const handleSubmit =() => {
-        // console.log("checking items in submit",items)
-    
-        Alert.alert(
-            '\u{1F914} Add Items?',
-            "Added Items Will be displayed in Home",
-            [
 
-                {
-                    text: 'CANCEL', onPress: () => {
-                       
+
+    const handleSubmit = () => {
+        if (items.length != 0) {
+            Alert.alert(
+                '\u{1F914} Add Items?',
+                "Added Items Will be displayed in Home",
+                [
+
+                    {
+                        text: 'CANCEL', onPress: () => {
+
+                        }
+                    },
+                    {
+                        text: 'OK', onPress: () => {
+                            items.map(i => addFinalDataToFirestore(i));
+                            stepperRef.current.prevStep();
+                            DeleteCollection();
+                        }
                     }
-                },
-                {
-                    text: 'OK', onPress: () => {                      
-                        items.map(i => addFinalDataToFirestore(i));                       
-                        stepperRef.current.prevStep();
-                        DeleteCollection();                        
+
+                ],
+
+            );
+        }
+        else {
+            Alert.alert(
+                '\u{1F61E} No Items to Submit!',
+                "Add Items to Submit",
+                [
+
+                    {
+                        text: 'OK', onPress: () => {
+                            stepperRef.current.prevStep();
+                        }
                     }
-                }
 
-            ],
+                ],
 
-        );
-        
+            );
+        }
     }
-  
-    const handlePrevious = React.useCallback(() => {
-        console.log('navigate to:', prevStep);
-    }, []);
 
-    const handleNext = React.useCallback(() => {
-        console.log('navigate to:', nextStep);
-       
-    }, []);
-
-  
    
-
     const ProgressStepStyles = {
         progressBarBgColor: '#76a89f',
         completedProgressBarBgColor: '#2dd4bf',
@@ -89,7 +93,6 @@ export default function NewScreen({ navigation, route }) {
         activeLabelColor: "#00695c",
         activeStepNumColor: "#fff"
     }
-    const label = ["Next", "Previous", "Submit"]
 
 
     const showCardMessage = (item) => {
@@ -114,8 +117,6 @@ export default function NewScreen({ navigation, route }) {
             <Stepper
                 ref={stepperRef}
                 onSubmit={() => handleSubmit()}
-                onPrevStep={() => handlePrevious}
-                onNextStep={() => handleNext}
                 numberOfSteps={2}
                 buttonsContainerStyle={{ backgroundColor: "#f0f8f7", borderRadius: 50, margin: 2, padding: 2, color: "#fff", width: wp(95), height: hp(10), alignSelf: "center", justifyContent: "space-around", }}
                 ButtonComponent={(props) => <CustomButton {...props} />}
@@ -126,7 +127,7 @@ export default function NewScreen({ navigation, route }) {
                     <View style={{ width: wp(100), height: hp(61.7) }} className='flex items-center p-1 justify-center'>
                         <View style={{ width: wp(95), height: hp(59) }} className='px-3  py-2 m-1'>
                             <Text className="text-teal-700 text-xl text-center font-medium">Enter Table Details</Text>
-                            <MultiInputTable  navigation={navigation} itemname={selectedItem !== undefined ? selectedItem : {}} handleItemData={handleItemData} disabled={disabled} />
+                            <MultiInputTable navigation={navigation} itemname={selectedItem !== undefined ? selectedItem : {}} handleItemData={handleItemData} disabled={disabled} />
                             <ItemCard items={items} navigation={navigation} showCardMessage={showCardMessage} deleteDocument={deleteDocument} />
                             <Toast style={{ zIndex: 1000 }} />
                         </View>

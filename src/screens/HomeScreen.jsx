@@ -164,7 +164,7 @@ export default function HomeScreen({ navigation,route }) {
         {confirmedItems.length>0?
         <View style={currentItems.length === 0 ? ({ height: hp(54), width: wp(95) }) : ({ height: hp(28), width: wp(95) })} >
           <FlatList style={{ width: wp(93), alignSelf: 'center', }}
-            data={confirmedItems}
+            data={confirmedItems.sort((a,b)=>b.item_id-a.item_id)}
             renderItem={renderConfirmedItem}
             extraData={selectedItems}
             showsVerticalScrollIndicator={false}

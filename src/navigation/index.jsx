@@ -77,8 +77,8 @@ export default function AppNavigation() {
     function ItemStack(){
       return(
       <Stack.Navigator screenOptions={{headerStyle:{backgroundColor:"#f0fdfa"},headerTransparent:"true",contentStyle:{backgroundColor:"#f0fdfa"}}} initialRouteName='ItemCategory'>
-        <Stack.Screen name="ItemCategory" options={{title:"Select Item Category"}}  component={ItemList}/>
-        <Stack.Screen name="ItemProduct" component={ItemProduct}/>
+        <Stack.Screen name="ItemCategory" options={{title:"Select Category",headerTintColor:"#004D40"}}  component={ItemList}/>
+        <Stack.Screen name="ItemProduct"  options={{title:"Select Item ",headerTintColor:"#004D40"}} component={ItemProduct}/>
       </Stack.Navigator>)
     }
 

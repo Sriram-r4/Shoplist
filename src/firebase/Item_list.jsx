@@ -6,14 +6,14 @@ import { usefirebaseOrderedList } from './Ordered_list';
 
 export function usefirebaseItemList(navigation) {
     const [items, setItems] = useState([]);//item data from firestore
-    const [item_id, setItem_id] = useState(1);
+    // const [item_id, setItem_id] = useState(1);
     const [disabled, setDisabled] = useState(false);//Add Item button state(disabled or not)
 
     const [confirmedItems, fetchFinalDataFromFirestore, addFinalDataToFirestore, deleteFinalDocument, updateFinalDocument] = usefirebaseOrderedList();
 
     useEffect(() => {
         fetchDataFromFirestore();
-    }, [item_id]);
+    }, [items]);
 
     useEffect(() => {
         fetchFinalDataFromFirestore();
@@ -22,6 +22,7 @@ export function usefirebaseItemList(navigation) {
 
 
     const handleItemData = (item) => {
+
         if (item.itemName != "" && item.itemCategory != "") {
 
             if (items.length !== 0) {
@@ -31,8 +32,12 @@ export function usefirebaseItemList(navigation) {
                     const addedItems = confirmedItems.map(i => i.itemName)
 
                     if (!addedItems.includes(item.itemName)) {
-                        item.item_id = items.length + 1;
-                        addDataToFirestore(item);
+                        
+                            items.sort((a, b) => b.item_id - a.item_id);
+                            const first = items[0];
+                            item.item_id = first.item_id + 1;
+                            addDataToFirestore(item);
+
                     }
                     else {
                         Alert.alert(`\u{1F61E} ${item.itemName} is already present`,
@@ -59,8 +64,17 @@ export function usefirebaseItemList(navigation) {
             else {
                 const addedItems = confirmedItems.map(i => i.itemName)
                 if (!addedItems.includes(item.itemName)) {
-                    item.item_id = items.length + 1;
-                    addDataToFirestore(item);
+                    if (confirmedItems.length == 0) {
+                        item.item_id = 1;
+                        addDataToFirestore(item);
+                    }
+                    else {
+                        const sortedConfirmedItems = confirmedItems.sort((a, b) => b.item_id - a.item_id);
+                        const firstSortedElement = sortedConfirmedItems[0];
+                        item.item_id = firstSortedElement.item_id + 1;
+                        addDataToFirestore(item);
+                    }
+
                 }
                 else {
                     Alert.alert(`\u{1F61E} ${item.itemName} is already present`,
@@ -101,7 +115,7 @@ export function usefirebaseItemList(navigation) {
         addDoc(collectionRef, dataWithTimeStamp).then((docRef) => {
             console.log('Document written with ID: ', docRef.id);
             setTimeout(() => setDisabled(false), 5000)
-            setItem_id(item_id + 1);
+           
 
         }).catch((error) => {
             setDisabled(false)
