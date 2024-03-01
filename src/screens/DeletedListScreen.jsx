@@ -30,6 +30,7 @@ export default function DeletedListScreen({ navigation, route }) {
   }
 
   const handleListDelete = (item) => {
+    console.log(item)
     Alert.alert(
       "\u{1F914} Action Required!",
       "Are you sure want to delete the List?",
@@ -52,6 +53,8 @@ export default function DeletedListScreen({ navigation, route }) {
     }} className="bg-teal-50/[0.8]  ">
       {deletedLists.length > 0 ?
         <FlatList
+          initialNumToRender={7}
+          maxToRenderPerBatch={6}
           data={deletedLists}
           renderItem={({ item }) => (
             <TouchableOpacity

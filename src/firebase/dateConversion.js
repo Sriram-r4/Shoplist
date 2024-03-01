@@ -1,5 +1,7 @@
 // Convert server timestamp to date and get the day
 export function getDayFromDateTimestamp(timestamp) {
+   //timestamp default value {"nanoseconds": 321000000, "seconds": 1708789600}
+  
     const date = timestamp.toDate(); // Convert server timestamp to Date object
     const day = date.getDate(); // Get the day of the month
     const month = date.toLocaleString('en-US', { month: 'long' }); // Get the month as text
@@ -13,3 +15,5 @@ export function getDayFromDateTimestamp(timestamp) {
     const year=date.getFullYear();
     return  day+" "+month+" "+year ;
   }
+
+  

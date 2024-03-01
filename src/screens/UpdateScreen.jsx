@@ -9,7 +9,6 @@ import { usefirebaseOrderedList } from '../firebase/Ordered_list';
 export default function UpdateScreen({ navigation, route }) {
     const ItemToBeUpdated = route.params.item;
     const previousScreen = route.params.previousScreen
-    console.log("Previous Screen", previousScreen)
     //be careful of removing unused in the below array.some functionality may break because of it
     const [items, disabled, handleItemData, updateDocument, deleteDocument,DeleteCollection] = usefirebaseItemList(navigation);
     const [confirmedItems, fetchFinalDataFromFirestore, addFinalDataToFirestore, deleteFinalDocument, updateFinalDocument] = usefirebaseOrderedList(navigation)

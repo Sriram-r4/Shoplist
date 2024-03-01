@@ -1,17 +1,18 @@
 import { View, Text, FlatList, ScrollView } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import { usefirebaseList } from '../firebase/List'
 import { Surface, DataTable, Provider } from 'react-native-paper'
 import { getDateFromTimestamp } from '../firebase/dateConversion'
+import LottieView from "lottie-react-native"
 
 export default function ListCarousel({ route, navigation }) {
     const [ListItemData, setListItemData, fetchListDataFromFirestore, addListDataToFirestore, deleteListDocument, updateListDocument] = usefirebaseList(navigation)
 
 
     const selectedListItem = route.params;
-    console.log(selectedListItem)
+    
 
     useEffect(() => {
         fetchListDataFromFirestore()
@@ -33,6 +34,7 @@ export default function ListCarousel({ route, navigation }) {
 
 
     return (
+        <SafeAreaProvider>
         <View style={{
             width: wp(100),
             height: hp(93),
@@ -41,6 +43,8 @@ export default function ListCarousel({ route, navigation }) {
                 <FlatList
                     initialScrollIndex={selectedListItem.SelectedIndex - 1}
                     data={ListItemData.sort((a, b) => b.list_id - a.list_id)}
+                    initialNumToRender={3}
+                    maxToRenderPerBatch={3}
                     horizontal
                     renderItem={({ item, index: i }) => {
                         return (
@@ -86,16 +90,28 @@ export default function ListCarousel({ route, navigation }) {
                                         </DataTable>
                                     </Provider>
                                 </Surface>
-                                <View style={{ height: hp(5), width: wp(85) }} className=" justify-around bg-teal-50 self-center rounded-xl m-2">
-                                    {item.UpdatetimeStamp ?
-                                        <Text style={{ height: hp(2.5), width: wp(85) }} className=" text-normal text-center text-teal-800  text-clip px-2  py-0.8">
-                                            Last Updated On:&nbsp;{getDateFromTimestamp(item.timeStamp)}
-                                        </Text> : <Text></Text>}
-                                    <Text style={{ height: hp(2.5), width: wp(85) }} className=" text-normal text-center text-teal-800  text-clip px-2  py-0.8">
-                                        Created On:&nbsp;{getDateFromTimestamp(item.timeStamp)}
-                                    </Text>
+                                {item == undefined && item == null ? <View style={{ height: hp(5), width: wp(85) }} className=" justify-around bg-teal-50 self-center rounded-xl m-2"></View> :
+                                    <View style={{ height: hp(5), width: wp(85) }} className=" justify-around bg-teal-50 self-center rounded-xl m-2">
+                                        {item.UpdatetimeStamp ?
+                                            <View>
+                                                <Text style={{ height: hp(2.5), width: wp(85) }} className=" text-normal text-center text-teal-800  text-clip px-2  py-0.8">
+                                                    Last Updated On:&nbsp;{getDateFromTimestamp(item.timeStamp)}
+                                                </Text>
+                                                <Text style={{ height: hp(2.5), width: wp(85) }} className=" text-normal text-center text-teal-800  text-clip px-2  py-0.8">
+                                                    Created On:&nbsp;{getDateFromTimestamp(item.timeStamp)}
+                                                </Text>
 
-                                </View>
+                                            </View>
+                                            :
+                                            <View style={{ height: hp(5), width: wp(85) }} className="p-2">
+                                                <Text style={{ height: hp(5), width: wp(85) }} className=" text-normal text-center text-teal-800  text-clip px-2  py-0.8">
+                                                    Created On:&nbsp;{getDateFromTimestamp(item.timeStamp)}
+                                                </Text>
+                                            </View>
+                                        }
+
+
+                                    </View>}
                             </View>)
                     }}
                     showsHorizontalScrollIndicator={false}
@@ -103,7 +119,12 @@ export default function ListCarousel({ route, navigation }) {
                     snapToInterval={wp(93)}
                     decelerationRate={0}
                     bounces={false}
-                /> : <View><Text>no data</Text></View>}
+                /> :
+                <View style={{ height: hp(93), width: wp(100) }} className=" flex-1 items-center justify-center self-center">
+                    <LottieView source={require("../../assets/Loading.json")} style={{ height: hp(30), width: wp(60), alignSelf: "center", alignItems: "center" }} autoPlay />
+                    <Text style={{ height: hp(6) }} className="text-teal-500 text-2xl font-semibold text-center ">Loading...</Text>
+                </View>}
         </View>
+        </SafeAreaProvider>
     )
 }

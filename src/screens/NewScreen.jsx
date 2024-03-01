@@ -108,6 +108,15 @@ export default function NewScreen({ navigation, route }) {
         });
     }
 
+    // const handlePrevious = React.useCallback((prevStep) => {
+    //     console.log('navigate to:', prevStep);
+    // }, []);
+
+    // const handleNext = React.useCallback((nextStep) => {
+    //     console.log('navigate to:', nextStep);
+
+    // }, []);
+
     return (
         <SafeAreaView style={{
             width: wp(100),
@@ -116,10 +125,10 @@ export default function NewScreen({ navigation, route }) {
 
             <Stepper
                 ref={stepperRef}
-                onSubmit={() => handleSubmit()}
+                onSubmit={handleSubmit}
                 numberOfSteps={2}
                 buttonsContainerStyle={{ backgroundColor: "#f0f8f7", borderRadius: 50, margin: 2, padding: 2, color: "#fff", width: wp(95), height: hp(10), alignSelf: "center", justifyContent: "space-around", }}
-                ButtonComponent={(props) => <CustomButton {...props} />}
+                // ButtonComponent={(props) => <CustomButton {...props} />}
             >
 
                 <Stepper.Step label="Item"

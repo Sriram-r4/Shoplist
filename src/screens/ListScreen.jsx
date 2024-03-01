@@ -7,7 +7,7 @@ import ListInfo from '../components/ListInfo'
 import PreviewTable from '../components/PreviewTable'
 import CustomButton from '../components/CustomButton';
 import { usefirebaseList } from '../firebase/List';
-import Toast from 'react-native-toast-message';
+import Toast, { BaseToast } from 'react-native-toast-message';
 
 export default function ListScreen({route,navigation}) {
 
@@ -56,7 +56,9 @@ export default function ListScreen({route,navigation}) {
     }, []);
 
     const handleListDetails=({listname,listdes,liststatus})=>{
-        ListData={listname,listdes,liststatus,ListItems}    
+        
+        ListData={listname,listdes,liststatus,ListItems}  
+        console.log(ListData)  
         Toast.show({
             type: 'success',
             text1: "List Information added successfully",
@@ -67,6 +69,7 @@ export default function ListScreen({route,navigation}) {
             position: "top",
 
         });  
+        
     }
 
     const ProgressStepStyles = {
@@ -82,7 +85,7 @@ export default function ListScreen({route,navigation}) {
         activeLabelColor: "#00695c",
         activeStepNumColor: "#fff"
     }
-    const label = ["Next", "Previous", "Submit"]
+   
     return (
         <SafeAreaView style={{
             width: wp(100),

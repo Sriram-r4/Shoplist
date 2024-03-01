@@ -52,6 +52,8 @@ export default function DeletedItemScreen({ navigation, route }) {
         }} className="bg-teal-50/[0.8]  ">
             {deletedItems.length > 0 ?
                 <FlatList
+                    initialNumToRender={3}
+                    maxToRenderPerBatch={3}
                     data={deletedItems}
                     renderItem={({ item }) => (
                         <TouchableOpacity onPress={() => { navigation.navigate("Item", { item: item }) }} onLongPress={() => { handleItemDelete(item) }}>
@@ -73,7 +75,7 @@ export default function DeletedItemScreen({ navigation, route }) {
                     )} />
                 :
                 <View className="flex-1 self-center"  >
-                    <LottieView source={require("../../assets/DeletedList.json")} style={{height:hp(50),width:wp(90)}} autoSize autoPlay />
+                    <LottieView source={require("../../assets/DeletedList.json")} style={{ height: hp(50), width: wp(90) }} autoSize autoPlay />
                     <View className="self-center items-center justify-center" style={{ height: hp(10), width: wp(95) }}>
                         <Text className="text-teal-700 font-medium text-2xl">No Deleted Items!</Text>
                         <Text className="text-teal-700 font-normal text-lg">Delete Items to view here </Text>

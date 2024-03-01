@@ -4,12 +4,12 @@
     "slug": "shoplist",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/AdaptiveIcon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/Splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#OD9488"
     },
     "assetBundlePatterns": [
       "**/*"

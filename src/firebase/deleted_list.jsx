@@ -70,7 +70,7 @@ export function usefirebaseDeletedList(navigation) {
 
                 Alert.alert(
                     '\u{1F642} Deleted Successfully',
-                    `${item.list_name} is deleted from your List`,
+                    `${item.listname} is deleted from your List`,
                     [
                         {
                             text: 'OK', onPress: () => {
