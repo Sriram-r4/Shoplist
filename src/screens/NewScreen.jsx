@@ -108,14 +108,6 @@ export default function NewScreen({ navigation, route }) {
         });
     }
 
-    // const handlePrevious = React.useCallback((prevStep) => {
-    //     console.log('navigate to:', prevStep);
-    // }, []);
-
-    // const handleNext = React.useCallback((nextStep) => {
-    //     console.log('navigate to:', nextStep);
-
-    // }, []);
 
     return (
         <SafeAreaView style={{

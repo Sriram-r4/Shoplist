@@ -20,11 +20,11 @@ export function usefirebaseUser() {
         const dataWithTimeStamp = { ...data, timeStamp: serverTimestamp(),userId:users.length+1 }
 
         addDoc(collectionRef, dataWithTimeStamp).then((docRef) => {
-            console.log('Document written with ID: ', docRef.id);
+            
 
         }).catch((error) => {
 
-            console.error('Error adding document: ', error);
+            navigation.navigate("Error")
         })
 
 
@@ -43,7 +43,7 @@ export function usefirebaseUser() {
             setUsers(data);
 
         }).catch((error) => {
-            console.error('Error  document:', error);
+            navigation.navigate("Error")
         });
     };
   
@@ -65,7 +65,7 @@ export function usefirebaseUser() {
 
             })
             .catch((error) => {
-                console.error('Error updating document:', error);
+                navigation.navigate("Error")
             });
 
     }

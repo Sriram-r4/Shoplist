@@ -27,7 +27,7 @@ export function usefirebaseDeletedItem(navigation) {
             setDeletedItems(data);
 
         }).catch((error) => {
-            console.error('Error  document:', error);
+            navigation.navigate("Error")
         });
     };
     const addDeletedItemsToFirestore = (data) => {
@@ -38,11 +38,11 @@ export function usefirebaseDeletedItem(navigation) {
         const dataWithTimeStamp = { ...data, deletedTimeStamp: serverTimestamp() }
 
         addDoc(collectionRef, dataWithTimeStamp).then((docRef) => {
-            console.log('Document written with ID: ', docRef.id);
+            
 
         }).catch((error) => {
 
-            console.error('Error adding document: ', error);
+            navigation.navigate("Error")
         })
 
 
@@ -81,12 +81,12 @@ export function usefirebaseDeletedItem(navigation) {
                     ],
 
                 );
-                console.log('Document deleted successfully');
+                
 
                 fetchDeletedItemsFromFirestore();
             })
             .catch((error) => {
-                console.error('Error deleting document:', error);
+                navigation.navigate("Error")
             });
     };
 
@@ -105,11 +105,10 @@ export function usefirebaseDeletedItem(navigation) {
                 return Promise.all(deletePromises);
             })
             .then(() => {
-                console.log('All documents deleted successfully.');
                 setDeletedItems([]);
             })
             .catch((error) => {
-                console.error('Error deleting documents: ', error);
+                navigation.navigate("Error")
             });
     };
     return [deletedItems, deleteDeletedItemDocument, addDeletedItemsToFirestore, fetchDeletedItemsFromFirestore, DeleteItemCollection];

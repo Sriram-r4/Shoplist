@@ -6,7 +6,7 @@ import { usefirebaseOrderedList } from './Ordered_list';
 
 export function usefirebaseItemList(navigation) {
     const [items, setItems] = useState([]);//item data from firestore
-    // const [item_id, setItem_id] = useState(1);
+   
     const [disabled, setDisabled] = useState(false);//Add Item button state(disabled or not)
 
     const [confirmedItems, fetchFinalDataFromFirestore, addFinalDataToFirestore, deleteFinalDocument, updateFinalDocument] = usefirebaseOrderedList();
@@ -102,7 +102,7 @@ export function usefirebaseItemList(navigation) {
             setItems(data);
 
         }).catch((error) => {
-            console.error('Error  document:', error);
+           navigation.navigate("Error")
         });
     };
     const addDataToFirestore = (data) => {
@@ -113,13 +113,12 @@ export function usefirebaseItemList(navigation) {
         const dataWithTimeStamp = { ...data, timeStamp: serverTimestamp() }
 
         addDoc(collectionRef, dataWithTimeStamp).then((docRef) => {
-            console.log('Document written with ID: ', docRef.id);
             setTimeout(() => setDisabled(false), 5000)
            
 
         }).catch((error) => {
             setDisabled(false)
-            console.error('Error adding document: ', error);
+            navigation.navigate("Error")
         })
 
 
@@ -158,12 +157,12 @@ export function usefirebaseItemList(navigation) {
                     ],
 
                 );
-                console.log('Document deleted successfully');
+               
 
                 fetchDataFromFirestore();
             })
             .catch((error) => {
-                console.error('Error deleting document:', error);
+                navigation.navigate("Error")
             });
     };
     const updateDocument = (item) => {
@@ -200,7 +199,7 @@ export function usefirebaseItemList(navigation) {
 
             })
             .catch((error) => {
-                console.error('Error updating document:', error);
+                navigation.navigate("Error")
             });
 
     }
@@ -219,11 +218,10 @@ export function usefirebaseItemList(navigation) {
                 return Promise.all(deletePromises);
             })
             .then(() => {
-                console.log('All documents deleted successfully.');
                 setItems([]);
             })
             .catch((error) => {
-                console.error('Error deleting documents: ', error);
+                navigation.navigate("Error")
             });
     };
     return [items, disabled, handleItemData, updateDocument, deleteDocument, fetchDataFromFirestore, DeleteCollection];

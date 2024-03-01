@@ -30,7 +30,7 @@ export default function DeletedListScreen({ navigation, route }) {
   }
 
   const handleListDelete = (item) => {
-    console.log(item)
+  
     Alert.alert(
       "\u{1F914} Action Required!",
       "Are you sure want to delete the List?",

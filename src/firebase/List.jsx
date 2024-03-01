@@ -22,8 +22,7 @@ export function usefirebaseList(navigation) {
                 }
             })
             .catch((error) => {
-                console.error('Error generating next list_id: ', error);
-                
+                navigation.navigate("Error")
             });
     };
     
@@ -35,11 +34,8 @@ export function usefirebaseList(navigation) {
     
                 return addDoc(collectionRef, dataWithTimeAndId);
             })
-            .then((docRef) => {
-                console.log('Document written with ID: ', docRef.id);
-            })
             .catch((error) => {
-                console.error('Error adding document: ', error);
+                navigation.navigate("Error")
             });
     };
     
@@ -60,7 +56,7 @@ export function usefirebaseList(navigation) {
 
 
         }).catch((error) => {
-            console.error('Error  document:', error);
+            navigation.navigate("Error")
         });
     };
 
@@ -85,12 +81,11 @@ export function usefirebaseList(navigation) {
                     ],
 
                 );
-                console.log('List deleted successfully');
 
                 fetchListDataFromFirestore();
             })
             .catch((error) => {
-                console.error('Error deleting document:', error);
+                navigation.navigate("Error")
             });
     };
     const updateListDocument = (item) => {
@@ -131,7 +126,7 @@ export function usefirebaseList(navigation) {
 
             })
             .catch((error) => {
-                console.error('Error updating document:', error);
+                navigation.navigate("Error")
             });
 
     }

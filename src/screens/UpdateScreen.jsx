@@ -54,13 +54,13 @@ export default function UpdateScreen({ navigation, route }) {
 
                 }
                 if (previousScreen === true) {
-                    console.log("Final Update")
+                  
                     updateFinalDocument(item);
                     
                 }
 
                 else if (previousScreen === undefined || previousScreen === false) {
-                    console.log("Item Update")
+                   
                     updateDocument(item);
                    
                 }
@@ -81,13 +81,13 @@ export default function UpdateScreen({ navigation, route }) {
             }
 
             if (previousScreen === true) {
-                console.log("Final Update")
+              
                 updateFinalDocument(item);
                 
             }
 
             else if (previousScreen === undefined || previousScreen === false) {
-                console.log("Item Update")
+                
                 updateDocument(item);
                
             }

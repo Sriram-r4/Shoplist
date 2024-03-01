@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, Pressable,FlatList } from 'react-native'
+import { View, Text, Image, TouchableOpacity, Pressable,FlatList,Alert } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
@@ -123,7 +123,7 @@ export default function AccountScreen({ navigation }) {
         <View style={{ height: hp(20), width: wp(92), alignSelf: "center" }} className="bg-teal-100 flex flex-row m-2 justify-around items-center rounded-xl">
       
           <View style={{ height: hp(13), width: wp(26) }} className="bg-cyan-100 rounded-full">
-            <Image source={profileImageState.profImage} alt='profile' style={{ height: hp(13), width: wp(26) }} />
+            <Image source={users[0].profileImageState.profImage} alt='profile' style={{ height: hp(13), width: wp(26) }} />
           </View>
           <View style={{ height: hp(13), width: wp(50) }} className="justify-center m-1">
             <View className=" p-1 m-0.5 flex-col flex-wrap " style={{ height: hp(5), width: wp(50) }} >
@@ -234,7 +234,11 @@ export default function AccountScreen({ navigation }) {
                     </View>
                     <View style={{ height: hp(6), width: wp(85), alignSelf: "center" }} className="flex-row justify-around items-center">
                       <Pressable
-                        onPress={hideModal}
+                        onPress={()=>{
+                          setUserName("");
+                          setProfileImageState(profileImageData[0])
+                          hideModal()
+                        }}
                         style={({ pressed }) => ({
                           height: hp(5),
                           width: wp(40),
@@ -315,7 +319,9 @@ export default function AccountScreen({ navigation }) {
                     </View>
                     <View style={{ height: hp(6), width: wp(85), alignSelf: "center" }} className="flex-row justify-around items-center">
                       <Pressable
-                        onPress={hideDeleteModal}
+                        onPress={()=>{
+                          setUserConfirmation("")
+                          hideDeleteModal()}}
                         style={({ pressed }) => ({
                           height: hp(5),
                           width: wp(40),
@@ -335,7 +341,25 @@ export default function AccountScreen({ navigation }) {
                       </Pressable>
                       <Pressable
                         onPress={() => {
-                          console.info(UserConfirmation)
+                          if(UserConfirmation.toString().trim().toUpperCase()=="CONFIRM"){
+                            Alert.alert("\u{1F5D1}Account Deletion Request Submitted!",
+                            "Your Request to delete your Account has been submitted to our Server. Account will be terminated and Data will be removed from our Database once our reviewer verifies it."
+                            ,[
+                              {text:"OK",onPress:()=>{
+                                setUserConfirmation("")
+                                hideDeleteModal()
+                              }}
+                            ])
+                          }
+                          else{
+                            Alert.alert("\u{1F61F}	Account Deletion Request Failed!",
+                            "Please type the correct Confirmation Code 'CONFIRM'."
+                            ,[
+                              {text:"OK",onPress:()=>{
+                                setUserConfirmation("")
+                              }}
+                            ])
+                          }
                         }}
                         style={({ pressed }) => ({
                           height: hp(5),

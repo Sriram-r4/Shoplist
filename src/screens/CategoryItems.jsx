@@ -29,7 +29,8 @@ export default function CategoryItems({ route, navigation }) {
                 <Text style={{ height: hp(4) ,width:wp(77)}} className="text-teal-700 text-2xl m-2 text-center font-medium">{selectedCategory} </Text>
                 <Text style={{ height: hp(5),width:wp(10) }} className="text-white text-2xl m-1 rounded-full bg-teal-600 text-center  font-medium">{confirmedItems.filter(itm => (itm.itemCategory == selectedCategory)).length}</Text>
             </View>
-            {confirmedItems.length != 0 ?
+            {confirmedItems!=undefined&&confirmedItems.length!=0?
+            (confirmedItems.length != 0 ?
                 (confirmedItems.filter(itm => (itm.itemCategory == selectedCategory)).length !=0 ?
                     <View style={{ height: hp(85), width: wp(95) }} className=" flex-1 self-center">
                         <FlatList
@@ -57,6 +58,12 @@ export default function CategoryItems({ route, navigation }) {
                     </View>
                     
                     
+                )
+                :
+                <View style={{ height: hp(85), width: wp(95) }} className="self-center" >
+                        <LottieView source={require("../../assets/EmptyListData.json")} style={{ height:hp(30),width:wp(60),alignSelf:"center" }} autoPlay />
+                        <Text style={{ height: hp(15) }} className="text-teal-500 text-2xl font-semibold text-center ">"{selectedCategory}" has no Items. Add Items under this category.</Text>
+                </View>
                 )
                 :
                 <View style={{ height: hp(85), width: wp(95) }} className=" flex-1 items-center justify-center self-center">

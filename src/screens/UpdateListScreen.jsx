@@ -81,7 +81,6 @@ export default function UpdateListScreen({ route, navigation }) {
                     )
                     }
                     else {
-                        console.log({listdes,listname,liststatus}) 
                         handleListUpdate({listdes,listname,liststatus})
                         
                     }

@@ -11,30 +11,13 @@ export function usefirebaseOrderedList(navigation) {
         
         const collectionRef = collection(FIREBASE_DB, 'ordered-list');
 
-
         addDoc(collectionRef, data).then((docRef) => {
-            console.log('Document written with ID: ', docRef.id);
-
+            
 
         }).catch((error) => {
-
-            console.error('Error adding document: ', error);
+            navigation.navigate("Error")
         })
 
-    
-        // generateNextItemId()
-        //     .then((nextItemId) => {
-        //         const collectionRef = collection(FIREBASE_DB, 'ordered-list');
-        //         const dataWithTimeAndId = { ...data, timeStamp: serverTimestamp(), item_id: nextItemId };
-    
-        //         return addDoc(collectionRef, dataWithTimeAndId);
-        //     })
-        //     .then((docRef) => {
-        //         console.log('Document written with ID: ', docRef.id);
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error adding document: ', error);
-        //     });
     };
 
     const fetchFinalDataFromFirestore = () => {
@@ -52,7 +35,7 @@ export function usefirebaseOrderedList(navigation) {
             
            
         }).catch((error) => {
-            console.error('Error  document:', error);
+            navigation.navigate("Error")
         });
     };
 
@@ -90,12 +73,10 @@ export function usefirebaseOrderedList(navigation) {
                     ],
 
                 );
-                console.log('Document deleted successfully');
-
                 fetchFinalDataFromFirestore();
             })
             .catch((error) => {
-                console.error('Error deleting document:', error);
+                navigation.navigate("Error")
             });
     };
     const updateFinalDocument = (item) => {
@@ -133,7 +114,7 @@ export function usefirebaseOrderedList(navigation) {
 
             })
             .catch((error) => {
-                console.error('Error updating document:', error);
+                navigation.navigate("Error")
             });
 
     }

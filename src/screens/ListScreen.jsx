@@ -47,18 +47,17 @@ export default function ListScreen({route,navigation}) {
     }, [])
 
     const handlePrevious = React.useCallback(() => {
-        console.log('navigate to:', prevStep);
+       
     }, []);
 
     const handleNext = React.useCallback(() => {
-        console.log('navigate to:', nextStep);
+       
 
     }, []);
 
     const handleListDetails=({listname,listdes,liststatus})=>{
         
-        ListData={listname,listdes,liststatus,ListItems}  
-        console.log(ListData)  
+        ListData={listname,listdes,liststatus,ListItems}   
         Toast.show({
             type: 'success',
             text1: "List Information added successfully",

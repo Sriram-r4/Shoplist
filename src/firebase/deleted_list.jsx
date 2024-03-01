@@ -27,7 +27,7 @@ export function usefirebaseDeletedList(navigation) {
             setDeletedLists(data);
 
         }).catch((error) => {
-            console.error('Error  document:', error);
+            navigation.navigate("Error")
         });
     };
     const addDeletedDataToFirestore = (data) => {
@@ -37,12 +37,9 @@ export function usefirebaseDeletedList(navigation) {
 
         const dataWithTimeStamp = { ...data, deletedTimeStamp: serverTimestamp() }
 
-        addDoc(collectionRef, dataWithTimeStamp).then((docRef) => {
-            console.log('Document written with ID: ', docRef.id);
+        addDoc(collectionRef, dataWithTimeStamp).then((docRef) => {}).catch((error) => {
 
-        }).catch((error) => {
-
-            console.error('Error adding document: ', error);
+            navigation.navigate("Error")
         })
 
 
@@ -81,12 +78,11 @@ export function usefirebaseDeletedList(navigation) {
                     ],
 
                 );
-                console.log('Document deleted successfully');
-
+                
                 fetchDeletedDataFromFirestore();
             })
             .catch((error) => {
-                console.error('Error deleting document:', error);
+                navigation.navigate("Error")
             });
     };
 
@@ -105,11 +101,10 @@ export function usefirebaseDeletedList(navigation) {
                 return Promise.all(deletePromises);
             })
             .then(() => {
-                console.log('All documents deleted successfully.');
                 setDeletedLists([]);
             })
             .catch((error) => {
-                console.error('Error deleting documents: ', error);
+                navigation.navigate("Error")
             });
     };
     return [deletedLists, deleteDeletedDocument, addDeletedDataToFirestore, fetchDeletedDataFromFirestore, DeleteListCollection];

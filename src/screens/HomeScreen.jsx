@@ -1,5 +1,5 @@
 import { View, Text, Image, ScrollView, FlatList, TouchableOpacity, Pressable } from 'react-native'
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import { collection, getDocs } from 'firebase/firestore';
@@ -21,21 +21,21 @@ export default function HomeScreen({ navigation, route }) {
 
   const isFocusedScreen = useIsFocused();
 
-  const profileImageData=[
-    {id:1,profImage:ProfileMen1,imgName:"Men 1"},
-    {id:2,profImage:ProfileMen2,imgName:"Men 2"},
-    {id:3,profImage:ProfileWomen1,imgName:"Women 1"},
-    {id:4,profImage:ProfileWomen2,imgName:"Women 2"}
-  ] 
+  const profileImageData = [
+    { id: 1, profImage: ProfileMen1, imgName: "Men 1" },
+    { id: 2, profImage: ProfileMen2, imgName: "Men 2" },
+    { id: 3, profImage: ProfileWomen1, imgName: "Women 1" },
+    { id: 4, profImage: ProfileWomen2, imgName: "Women 2" }
+  ]
 
   const [confirmedItems, fetchFinalDataFromFirestore, addFinalDataToFirestore, deleteFinalDocument, updateFinalDocument] = usefirebaseOrderedList();
   const [selectedItems, setSelectedItems] = useState([]);
   const [selected, setSelected] = useState(false);
-  const [users,addUser,fetchUser,updateUser] = usefirebaseUser();
+  const [users, addUser, fetchUser, updateUser] = usefirebaseUser();
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchUser()
-  },[users])
+  }, [users])
 
   useEffect(() => {
     fetchFinalDataFromFirestore();
@@ -129,26 +129,27 @@ export default function HomeScreen({ navigation, route }) {
       height: hp(85),
     }}
       className="bg-teal-50/[0.8]">
-      {users!=undefined&&users[0]!=undefined?
-      <View style={{ width: wp(95), height: (150), alignSelf: "center", }} className=" rounded-2xl flex  flex-row bg-teal-100/[0.5] " >
-        <View style={{ width: wp(55), height: hp(19.5) }} className="justify-center">
-          <Text style={{ height: hp(5) }} className="text-teal-700 text-2xl font-semibold px-4 pt-2">Welcome</Text>
-          <Text style={{ height: hp(5) }} className="text-teal-900  text-3xl font-bold px-4 pt-1">{users[0].Username} !</Text>
-          <Text style={{ height: hp(4) }} className="text-teal-600 font-normal px-4 pt-1">It is great to have you here</Text>
-        </View>
-        {users[0].profileImageState!=undefined&&users[0].profileImageState!=null?
-        <View style={{ width: wp(40), height: hp(19.5) }} className="flex justify-center">
-          <Image source={users[0].profileImageState.profImage} alt='profile' style={{ width: wp(36), height: hp(18.2), resizeMode: 'cover' }} className='rounded-2xl   p-1' />
+      {users != undefined && users[0] != undefined ?
+
+        <View style={{ width: wp(95), height: hp(20), alignSelf: "center", }} className=" rounded-2xl flex  flex-row bg-teal-100/[0.5] " >
+          <View style={{ width: wp(55), height: hp(19.5) }} className="justify-center">
+            <Text style={{ height: hp(5) }} className="text-teal-700 text-2xl font-semibold px-4 pt-2">Welcome</Text>
+            <Text style={{ height: hp(5) }} className="text-teal-900  text-3xl font-bold px-4 pt-1">{users[0].Username} !</Text>
+            <Text style={{ height: hp(4) }} className="text-teal-600 font-normal px-4 pt-1">It is great to have you here</Text>
+          </View>
+          {users[0].profileImageState != undefined && users[0].profileImageState != null ?
+            <View style={{ width: wp(40), height: hp(19.5) }} className="flex justify-center">
+              <Image source={users[0].profileImageState.profImage} alt='profile' style={{ width: wp(36), height: hp(18.2), resizeMode: 'cover' }} className='rounded-2xl   p-1' />
+            </View>
+            :
+            <View style={{ width: wp(40), height: hp(19.5) }} className="flex justify-center">
+              <Skeleton radius="round" height={hp(18.2)} width={wp(36)} colorMode='light' colors={["#B2DFDB", "#F0FDFA", "#B2DFDB"]} transition={{ type: "timing", duration: 2000 }} />
+            </View>}
         </View>
         :
-        <View style={{ width: wp(40), height: hp(19.5) }} className="flex justify-center">
-        <Skeleton radius="round" height={hp(18.2)} width={wp(36)} colorMode='light' colors={["#B2DFDB", "#F0FDFA", "#B2DFDB"]} transition={{ type: "timing", duration: 2000 }}/>
-        </View>}
-      </View>
-      :
-      <View className="self-center">
-        <Skeleton height={150} width={wp(95)} colorMode='light' colors={["#B2DFDB", "#F0FDFA", "#B2DFDB"]} transition={{ type: "timing", duration: 2000 }}/>
-      </View>
+        <View className="self-center">
+          <Skeleton height={hp(20)} width={wp(95)} colorMode='light' colors={["#B2DFDB", "#F0FDFA", "#B2DFDB"]} transition={{ type: "timing", duration: 2000 }} />
+        </View>
       }
       {currentItems.length != 0 ?
         <View style={{ width: wp(95), height: hp(22), alignSelf: 'center' }} className='bg-teal-50 m-4 rounded-2xl'>
@@ -192,7 +193,7 @@ export default function HomeScreen({ navigation, route }) {
               <Text className="text-white text-center  text-lg">Confirm</Text>
             </Pressable>}
         </View>
-        {confirmedItems.length!=0?
+        {confirmedItems.length != 0 ?
           <View style={currentItems.length === 0 ? ({ height: hp(54), width: wp(95) }) : ({ height: hp(28), width: wp(95) })} >
             <FlatList style={{ width: wp(93), alignSelf: 'center', }}
               data={confirmedItems.sort((a, b) => b.item_id - a.item_id)}
@@ -203,15 +204,19 @@ export default function HomeScreen({ navigation, route }) {
               showsVerticalScrollIndicator={false}
             />
           </View>
+
           :
-          
-            <View className="flex-1 " >
-              <LottieView source={require("../../assets/EmptyListData.json")} className="self-center" style={{ height: hp(40), width: wp(95) }} autoSize autoPlay />
+
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View className="flex-1 ">
+              <LottieView source={require("../../assets/EmptyListData.json")} className="self-center" style={{ height: hp(40), width: wp(95) }} autoPlay />
               <View className="self-center items-center justify-center" style={{ height: hp(10), width: wp(95) }}>
                 <Text className="text-teal-700 font-medium text-2xl">No Items!</Text>
                 <Text className="text-teal-700 font-normal text-lg">Add Items to view here </Text>
               </View>
             </View>
+          </ScrollView>
+
         }
       </View>
     </SafeAreaView>
