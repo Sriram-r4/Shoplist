@@ -19,16 +19,17 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage":"./assets/AdaptiveIcon.png",
+        "foregroundImage": "./assets/AdaptiveIcon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.sriram4.shoplist"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "6b83a524-c060-4c02-8a69-ddfb75d446ef"
+        "projectId": "0f5cc4ff-09e2-48c9-bb16-3288b1424991"
       }
     },
     "owner": "sriram-4"

@@ -125,7 +125,7 @@ export default function ItemScreen({ navigation, route }) {
               <LottieView source={require("../../assets/Loading.json")} style={{ height: hp(30), width: hp(60) }} autoPlay />
             </View>
             :
-            <View style={itemInfo.updateTimeStamp ? { height: hp(32), width: wp(90) } : { height: hp(24), width: wp(90) }} className="bg-teal-100/[0.6] self-center py-2 px-1  rounded-2xl my-5 ">
+            <View style={itemInfo.updateTimeStamp ? { height: hp(33), width: wp(90) } : { height: hp(24), width: wp(90) }} className="bg-teal-100/[0.6] self-center py-2 px-1  rounded-2xl my-5 ">
 
               <Timeline
                 data={itemInfo.updateTimeStamp ? Timedata : TimedataWithoutUpdate}
@@ -138,7 +138,7 @@ export default function ItemScreen({ navigation, route }) {
                 options={{
                   style: { padding: 5 }
                 }}
-
+                
                 innerCircle={'dot'}
                 listViewContainerStyle={{ justifyContent: "center", padding: 5, margin: 5 }}
               />

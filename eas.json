@@ -1,0 +1,53 @@
+{
+  "cli": {
+    "version": ">= 7.3.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "preview2": {
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      }
+    },
+    "preview3": {
+      "developmentClient": true
+    },
+    "preview4": {
+      "distribution": "internal"
+    },
+    "production": {
+      "env": {
+        "API_KEY":"AIzaSyB1jmhapVim1pm1SyvfbhvmjgZxWT3rvMA",
+        "AUTH_DOMAIN":"shoplist-9c9cf.firebaseapp.com",
+        "PROJECT_ID":"shoplist-9c9cf",
+        "STORAGE_BUCKET":"shoplist-9c9cf.appspot.com",
+        "SENDER_ID":"382244951826",
+        "APP_ID":"1:382244951826:web:62259e76c0f369bd2b85cb",
+        "MEASUREMENT_ID":"G-Y6S11JLF7L"
+      }
+    },
+    "test": {
+      "env": {
+        "API_KEY":"AIzaSyB1jmhapVim1pm1SyvfbhvmjgZxWT3rvMA",
+        "AUTH_DOMAIN":"shoplist-9c9cf.firebaseapp.com",
+        "PROJECT_ID":"shoplist-9c9cf",
+        "STORAGE_BUCKET":"shoplist-9c9cf.appspot.com",
+        "SENDER_ID":"382244951826",
+        "APP_ID":"1:382244951826:web:62259e76c0f369bd2b85cb",
+        "MEASUREMENT_ID":"G-Y6S11JLF7L"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
